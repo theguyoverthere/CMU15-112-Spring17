@@ -1,7 +1,6 @@
 import math
-import decimal
 
-def fasterIsPrime(n):
+def isPrime(n):
     if n < 2:
         return False
     elif n == 2:
@@ -14,11 +13,19 @@ def fasterIsPrime(n):
                 return False
         return True
 
-# And take it for a spin
-for n in range(100):
-    if fasterIsPrime(n):
-        print(n, end=" ")
-print()
 
+def nthPrime(n):
+    found = 0
+    guess = 0
 
+    while found <= n:
+        guess += 1
+        if isPrime(guess):
+            found += 1
 
+    return guess
+
+# and let's see a list of the primes
+for n in range(10):
+    print(n, nthPrime(n))
+print("Done!")
