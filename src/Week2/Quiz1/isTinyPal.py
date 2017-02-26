@@ -24,8 +24,3 @@ print(isTinyPal(-808))  #returns True
 print(isTinyPal(-121)) # returns True
 print(isTinyPal(-11))  # returns True
 print(isTinyPal(-1))   # returns True
-
-def bonusCt2(x, y):
-   return (x + bonusCt2(x - 1, y - 1) if (y > 0) else
-          (2 + bonusCt2(x - 1, y) if (x > 0) else 42))
-print(bonusCt2(7, 4))
