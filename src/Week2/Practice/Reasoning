@@ -1,0 +1,67 @@
+==============================================================
+def rc1(n):
+    if ((not isinstance(n, int)) or (n > 100)): return False
+    total = 0
+
+    while (n > 0):
+        total = 10*total + n%10
+        n //= 10
+
+    return (total == 42)
+==============================================================
+
+n - integer <= 100, n > 0
+
+Try n = 4,  we get a total of 4 --> Number has be two digits.
+Try n = 45, we get a total of 54
+Try n = 21, we get a total of 12
+Try n = 51, we get a total of 51
+n = 24 to produce True
+
+==============================================================
+def f(n):
+    if (n == 0): return 1
+    n = abs(n)
+    count = 0
+    while (n > 0):
+        count += 1
+        n //= 10
+    return count
+
+def rc2(m):
+    if (not(isinstance(m, int)) or (m < 0)): return False
+    start = 0
+    while True:
+        count = 0
+        for n in range(start, start+3):
+            count += f(n)
+        if (count > 9): break
+        start += 1
+    return (m == start)
+==============================================================
+m - integer, m > 0
+m = start (at the end of program)
+
+start = 0
+count = 0
+
+start = 1 (n ->(1,4))                          1 2 3  -- count = 3
+count = 0                                      2 3 4  -- count = 3
+                                               3 4 5  -- count = 3
+n     = 1                                      4 5 6
+                                               5 6 7
+                                               6 7 8
+count = 0 + f(1) = 1                           7 8 9
+                                               10 11 12  count = 6
+n     = 2                                      13 14 15
+count = 1 + 1 = 2                              99 100 101  count = 8
+                                               101 103 104 count = 9
+                                               999 1000 1001 count =  11
+                                               996 997 998 count = 9
+                                               997 998 999 count = 9
+                                               998 999 1000 count = 10 -- Loop will break range is (998, 998 + 3)
+n     = 3                                      => start = 998 => m = 998 will produce True
+count = 2 + 1 = 3
+
+start = 2
+
