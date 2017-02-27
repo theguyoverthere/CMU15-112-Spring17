@@ -43,15 +43,15 @@ def longestDigitRun(n):
 
 def testLongestDigitRun():
     print('Testing longestDigitRun()... ', end='')
-    # assert(longestDigitRun(117773732) == 7)
-    # assert(longestDigitRun(-677886) == 7)
-    # assert(longestDigitRun(5544) == 4)
-    # assert(longestDigitRun(1) == 1)
-    # assert(longestDigitRun(0) == 0)
-    # assert(longestDigitRun(22222) == 2)
-    # assert(longestDigitRun(111222111) == 1)
+    assert(longestDigitRun(117773732) == 7)
+    assert(longestDigitRun(-677886) == 7)
+    assert(longestDigitRun(5544) == 4)
+    assert(longestDigitRun(1) == 1)
+    assert(longestDigitRun(0) == 0)
+    assert(longestDigitRun(22222) == 2)
+    assert(longestDigitRun(111222111) == 1)
     assert(longestDigitRun(123) == 1)
-    # assert(longestDigitRun(111222333) == 1)
+    assert(longestDigitRun(111222333) == 1)
     print('Passed.')
 
 
