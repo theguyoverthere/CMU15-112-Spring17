@@ -21,9 +21,9 @@ def numConsecutiveDigits(nthDigit, n):
 
 def longestDigitRun(n):
     m = n = abs(n)
-    prevMax          = -1  # Store the integer
-    prevMaxLength    =  0  # Store the associated consecutive length.
-    currentLength    =  0  # Consecutive length for the current iteration.
+    smallestDigit  = -1  # Store the integer
+    maxLength      =  0  # Store the associated consecutive length.
+    currentLength  =  0  # Consecutive length for the current iteration.
 
     while n > 0:
         nthDigit = n % 10  # Partition the integer into two parts.
@@ -31,15 +31,15 @@ def longestDigitRun(n):
 
         currentLength = numConsecutiveDigits(nthDigit, n)
 
-        if currentLength > prevMaxLength:
-            prevMaxLength = currentLength
-            prevMax       = nthDigit
-        elif currentLength == prevMaxLength:
-            prevMax = min(nthDigit, prevMax)
+        if currentLength > maxLength:
+            maxLength     = currentLength
+            smallestDigit = nthDigit
+        elif currentLength == maxLength:
+            smallestDigit = min(nthDigit, smallestDigit)
 
-    if prevMax == -1: return minDigit(m)
+    if smallestDigit == -1: return minDigit(m)
 
-    return prevMax
+    return smallestDigit
 
 def testLongestDigitRun():
     print('Testing longestDigitRun()... ', end='')
