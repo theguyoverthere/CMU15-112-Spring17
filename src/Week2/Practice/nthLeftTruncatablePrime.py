@@ -1,17 +1,6 @@
 import cs112_s17_linter
 import math
 
-def isPrime(n):
-    if n == 2:
-        return True
-    elif (n < 2) or (n % 2 == 0):
-        return False
-
-    for factor in range(3, math.floor(math.sqrt(n) + 1), 2):
-        if n % factor == 0:
-            return False
-    return True
-
 def digitCount(n):
     if n == 0: return 1
 
@@ -23,47 +12,56 @@ def digitCount(n):
         n //= 10
     return count
 
-def isPalindrome(n):
-    numDigits = digitCount(n)
+def isPrime(n):
+    if n == 2:
+        return True #Special Case
+    elif (n < 2) or (n % 2 == 0):
+        return False
 
-    while n > 0:
-        rDigit = n % 10
-        lDigit = n // (10 ** (numDigits - 1))
-        
-        if rDigit != lDigit: return False
-
-        #Truncate leftmost digit followed by the rightmost digit
-        n -= (lDigit * (10 ** (numDigits - 1)))
-        n //= 10
-        numDigits-= 2
+    for factor in range(3, math.floor(math.sqrt(n) + 1), 2):
+        if n % factor == 0:
+            return False
 
     return True
 
+def nthLeftTruncatablePrime(n):
+    found =  0
+    guess =  1
 
-def nthPalindromicPrime(n):
-    found = -1 
-    guess = 1
-    while found  < n:
+    # Keep iterating and each time a Prime is found, make note of it.
+    # Once the nth, value is found, return the guess.
+
+    while found <= n:
         guess += 1
-        if isPrime(guess) and isPalindrome(guess):
-            found += 1
+        numDigits = digitCount(guess)
+
+        if isPrime(guess):
+            g = guess
+
+            while g > 0:
+                lDigit = g // (10 ** (numDigits - 1))
+                g -= (lDigit * (10 ** (numDigits - 1)))
+                numDigits -= 1
+
+                if (g > 0) and (not isPrime(g)): break
+
+            if g == 0 : found += 1
     return guess
 
-def testNthPalindromicPrime():
-    print('Testing nthPalindromicPrime()... ', end='')
-    assert(nthPalindromicPrime(0) == 2)
-    assert(nthPalindromicPrime(1) == 3)
-    assert(nthPalindromicPrime(5) == 101)
-    assert(nthPalindromicPrime(10) == 313)
+def testNthLeftTruncatablePrime():
+    print('Testing nthLeftTruncatablePrime()... ', end='')
+    assert(nthLeftTruncatablePrime(0) == 2)
+    assert(nthLeftTruncatablePrime(10) == 53)
+    assert(nthLeftTruncatablePrime(1) == 3)
+    assert(nthLeftTruncatablePrime(5) == 17)
     print('Passed.')
-
 
 #################################################
 # testAll and main
 #################################################
 
 def testAll():
-    testNthPalindromicPrime()
+    testNthLeftTruncatablePrime()
 
 def main():
     bannedTokens = (
