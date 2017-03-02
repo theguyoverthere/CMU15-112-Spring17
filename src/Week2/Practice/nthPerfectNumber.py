@@ -1,13 +1,20 @@
 import cs112_s17_linter
+import math
 
 def isPerfectNumber(n):
+    if n <= 1 : return False
+
     divisorSum = 0
 
-    for divisor in range(1, n):
+    for divisor in range(1, math.floor(n  ** 0.5) + 1):
         if n % divisor == 0:
             divisorSum += divisor
+            divisorSum += (n // divisor) # Divisors appear in pairs, but we're only
+                                         # picking up the one below the square root.
 
-    return divisorSum == n
+    # Because we're starting division at 1, we're including the pair divisor i.e.
+    # n itself in the divisorSum.
+    return divisorSum == 2 * n
 
 def nthPerfectNumber(n):
     found = 0
