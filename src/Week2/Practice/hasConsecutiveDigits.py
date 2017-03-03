@@ -6,9 +6,9 @@ def hasConsecutiveDigits(n):
     n = abs(n)
     lastDigit = -1
 
-    while (n > 0):
+    while n > 0:
         currentDigit =  n % 10
-        if (currentDigit == lastDigit): return True
+        if currentDigit == lastDigit: return True
         lastDigit = currentDigit  # Save the last digit
         n //= 10                  # Discard last digit
     return False

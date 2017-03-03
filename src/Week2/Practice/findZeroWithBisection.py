@@ -1,53 +1,42 @@
 import cs112_s17_linter
 
-# Recursive
-def gcd(m, n):
-    # Euclid's theorem : gcd(x, y) = gcd(y, x % y)
-    if n == 0 : return m
-    else : return gcd(n, m % n)
-    return 0
+def almostEqual(d1, d2, epsilon = 0.000000001):
+    return abs(d2 - d1) < epsilon
+
+def findZeroWithBisection(f, x0, x1, epsilon):
+    while not almostEqual(x0, x1, epsilon):
+        xmid = (x0 + x1) / 2
+
+        if f(xmid) == 0:
+            return xmid
+        elif f(x0) * f(x1) >= 0:
+            return None
+        elif f(xmid) * f(x0) > 0:
+            x0 = xmid
+        else:
+            x1 = xmid
+    return (x0 + x1) / 2
 
 
-# Non-Recursive
-def gcd(m, n):
-    # Euclid's theorem : gcd(m, n) = gcd(n, m % n)
-
-    while n > 0:
-        mOld = m
-        m = n
-        n = mOld % n
-
-    return m
-
-# Non-recursive but cleaner IMO
-def gcd(m, n):
-    # Euclid's theorem : gcd(m, n) = gcd(n, m % n)
-
-    while n > 0:
-        m, n = n, m % n  # Everything on the right is computed BEFORE the assignment
-                         # takes place.
-    return m
-
-
-def testGcd():
-    print('Testing gcd()... ', end='')
-    assert(gcd(3, 3) == 3)
-    assert(gcd(3**6, 3**6) == 3**6)
-    assert(gcd(3**6, 2**6) == 1)
-    assert (gcd(2*3*4*5,3*5) == 15)
-    x = 1568160 # 2**5 * 3**4 * 5**1 *        11**2
-    y = 3143448 # 2**3 * 3**6 *        7**2 * 11**1
-    g =    7128 # 2**3 * 3**4 *               11**1
-    assert(gcd(x, y) == g)
+def testFindZeroWithBisection():
+    print('Testing findZeroWithBisection()... ', end='')
+    def f1(x): return x*x - 2 # root at x=sqrt(2)
+    x = findZeroWithBisection(f1, 0, 2, 0.000000001)
+    assert(almostEqual(x, 1.41421356192))
+    def f2(x): return x**2 - (x + 1)  # root at x=phi
+    x = findZeroWithBisection(f2, 0, 2, 0.000000001)
+    assert(almostEqual(x, 1.61803398887))
+    def f3(x): return x**5 - 2**x # f(1)<0, f(2)>0
+    x = findZeroWithBisection(f3, 1, 2, 0.000000001)
+    assert(almostEqual(x, 1.17727855081))
     print('Passed.')
-
 
 #################################################
 # testAll and main
 #################################################
 
 def testAll():
-    testGcd()
+    testFindZeroWithBisection()
 
 def main():
     bannedTokens = (

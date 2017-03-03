@@ -17,7 +17,7 @@ def isPrime(n):
 def sumOfDigits(n):
     digitSum = 0
 
-    while (n > 0):
+    while n > 0:
         digitSum += n % 10
         n //= 10
 
