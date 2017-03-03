@@ -26,84 +26,424 @@ def roundHalfUp(d):
 #################################################
 
 def digitCount(n):
-    return 42
+    if n == 0: return 1
+
+    count = 0
+    n = abs(n)
+
+    while n > 0:
+        count += 1
+        n //= 10
+    return count
 
 def hasConsecutiveDigits(n):
-    return 42
+    if abs(n) < 10: return False
 
-def gcd(x, y):
-    return 42
+    n = abs(n)
+    lastDigit = -1
+
+    while n > 0:
+        currentDigit =  n % 10
+        if currentDigit == lastDigit: return True
+        lastDigit = currentDigit  # Save the last digit
+        n //= 10                  # Discard last digit
+    return False
+
+def gcd(m, n):
+    # Euclid's theorem : gcd(m, n) = gcd(n, m % n)
+
+    while n > 0:
+        m, n = n, m % n  # Everything on the right is computed BEFORE the assignment
+                         # takes place.
+    return m
+
+def isPrime(n):
+    if n == 2:
+        return True
+    elif (n < 2) or (n % 2 == 0):
+        return False
+
+    for factor in range(3, math.floor(math.sqrt(n) + 1), 2):
+        if n % factor == 0:
+            return False
+    return True
+
 
 def pi(n):
-    return 42
+    count = 0
+    for i in range(2, n + 1):
+        if isPrime(i):
+            count += 1
+    return count
 
 def h(n):
-    return 42
+    if n <= 0: return 0
+    harmonicSum = 0.0
+
+    for i in range(1, n + 1):
+        harmonicSum += (1/i)
+
+    return harmonicSum
 
 def estimatedPi(n):
-    return 42
+    if n <= 2: return 0
+    return int (roundHalfUp(n / (h(n) - 1.5)))
+
 
 def estimatedPiError(n):
-    return 42
+    if n <= 2 : return 0
+
+    return abs(pi(n) - estimatedPi(n))
+
 
 def sumOfDigits(n):
-    return 42
+    digitSum = 0
+
+    while n > 0:
+        digitSum += n % 10
+        n //= 10
+
+    return digitSum
 
 def nthAdditivePrime(n):
-    return 42
+    found = 0
+    guess = 1
+
+    # Keep iterating and each time a Prime is found, make note of it.
+    # Once the nth, value is found, return the guess.
+
+    while found <= n:
+        guess += 1
+        if isPrime(guess) and isPrime(sumOfDigits(guess)):
+            found += 1
+    return guess
+
+def isPerfectNumber(n):
+    if n <= 1 : return False
+
+    divisorSum = 0
+
+    for divisor in range(1, math.floor(n  ** 0.5) + 1):
+        if n % divisor == 0:
+            divisorSum += divisor
+            divisorSum += (n // divisor) # Divisors appear in pairs, but we're only
+                                         # picking up the one below the square root.
+
+    # Because we're starting division at 1, we're including the pair divisor i.e.
+    # n itself in the divisorSum.
+    return divisorSum == 2 * n
 
 def nthPerfectNumber(n):
-    return 42
+    found = 0
+    guess = 0
+    while found  <= n:
+        guess += 1
+        if isPerfectNumber(guess):
+            found += 1
+    return guess
 
 #################################################
 # Wed Recitation
 #################################################
 
+def minDigit(n):
+    smallestDigit = n % 10
+
+    while n > 0:
+        nthDigit = n % 10
+        if nthDigit < smallestDigit:
+            smallestDigit = nthDigit
+        n //= 10
+
+    return smallestDigit
+
+def numConsecutiveDigits(nthDigit, n):
+    numCount = 0
+
+    while n % 10 == nthDigit:
+        numCount += 1
+        n //= 10
+    return numCount
+
 def longestDigitRun(n):
-    return 42
+    m = n = abs(n)
+    smallestDigit  = -1  # Store the integer
+    maxLength      =  0  # Store the associated consecutive length.
+    currentLength  =  0  # Consecutive length for the current iteration.
+
+    while n > 0:
+        nthDigit = n % 10  # Partition the integer into two parts.
+        n //= 10
+
+        currentLength = numConsecutiveDigits(nthDigit, n)
+
+        if currentLength > maxLength:
+            maxLength     = currentLength
+            smallestDigit = nthDigit
+        elif currentLength == maxLength:
+            smallestDigit = min(nthDigit, smallestDigit)
+
+    if smallestDigit == -1: return minDigit(m)
+
+    return smallestDigit
+
+
+def numConsecutiveDecreasingDigits(n):
+    digitCount = 1
+    numSequence     = 0
+
+    while n > 0:
+        nthDigit = n % 10
+        mthDigit = (n % 100) // 10
+
+        # We have either reached the leftmost digit or found one which is in
+        # an incorrect order.
+        if (mthDigit == 0) or (nthDigit <= mthDigit): break
+
+        numSequence += nthDigit * (10 ** (digitCount - 1))
+        digitCount += 1
+
+        n //= 10
+
+    numSequence += nthDigit * (10 ** (digitCount - 1))
+
+    return digitCount, numSequence
+
 
 def longestIncreasingRun(n):
-    return 42
+
+    maxLength       = 0  # Store the associated consecutive length.
+    longestSequence = 0  # Longest increasing sequence so far.
+
+    while n > 0:
+        currentLength   = 0 # Consecutive length for the current iteration.
+        currentSequence = 0 # Value of the current sequence of increasing digits.
+
+        currentLength, currentSequence = numConsecutiveDecreasingDigits(n)
+
+        if currentLength > maxLength:
+            maxLength       = currentLength
+            longestSequence = currentSequence
+            n //= (10 ** (currentLength - 1))
+
+        elif currentLength == maxLength:
+            longestSequence = max(currentSequence, longestSequence)
+
+        n //= 10
+
+    return longestSequence
+
+def isPalindrome(n):
+    numDigits = digitCount(n)
+
+    while n > 0:
+        rDigit = n % 10
+        lDigit = n // (10 ** (numDigits - 1))
+
+        if rDigit != lDigit: return False
+
+        #Truncate leftmost digit followed by the rightmost digit
+        n -= (lDigit * (10 ** (numDigits - 1)))
+        n //= 10
+        numDigits-= 2
+
+    return True
 
 def nthPalindromicPrime(n):
-    return 42
+    found = -1
+    guess = 1
+    while found  < n:
+        guess += 1
+        if isPrime(guess) and isPalindrome(guess):
+            found += 1
+    return guess
 
 def nthLeftTruncatablePrime(n):
-    return 42
+    found =  0
+    guess =  1
+
+    # Keep iterating and each time a Prime is found, make note of it.
+    # Once the nth, value is found, return the guess.
+
+    while found <= n:
+        guess += 1
+        numDigits = digitCount(guess)
+
+        if isPrime(guess):
+            g = guess
+
+            while g > 0:
+                lDigit = g // (10 ** (numDigits - 1))
+                g -= (lDigit * (10 ** (numDigits - 1)))
+                numDigits -= 1
+
+                if (g > 0) and (not isPrime(g)): break
+
+            if g == 0 : found += 1
+    return guess
 
 def nthCarolPrime(n):
-    return 42
+    found =  0
+    k     =  0
+
+    # Keep iterating and each time a Carol Prime is found,
+    # make note of it. Once the nth, value is found, return
+    # the Carol Number.
+
+    while found <= n:
+        k += 1
+        nextCarolNum = (((2 ** k) - 1) ** 2) - 2
+
+        if isPrime(nextCarolNum):
+            found += 1
+
+    return nextCarolNum
 
 #################################################
 # Thu Lecture
 #################################################
 
 def sumOfSquaresOfDigits(n):
-    return 42
+    sumSquare = 0
+
+    while n > 0:
+        nthDigit = n % 10
+        sumSquare += (nthDigit ** 2)
+
+        n //= 10
+
+    return sumSquare
 
 def isHappyNumber(n):
-    return 42
+
+    if   n <= 0: return False
+    if   n == 1: return True
+    elif n == 4: return False # Special Case
+
+    while True:
+        if (n == 1) or (n == 4): break
+        n = sumOfSquaresOfDigits(n)
+    return n == 1
 
 def nthHappyNumber(n):
-    return 42
+    guess = 0
+    found = -1
+    while found < n:
+        guess += 1
+        if isHappyNumber(guess):
+            found += 1
+
+    return guess
 
 def isHappyPrime(n):
-    return 42
+    return isPrime(n) and isHappyNumber(n)
 
 def nthHappyPrime(n):
-    return 42
+    found = -1
+    guess = 1
+    while found  < n:
+        guess += 1
+        if isHappyPrime(guess):
+            found += 1
+    return guess
+
+def countDigitOccurrence(n, digit):
+    digitCount = 0
+
+    while n > 0:
+        nthDigit = n % 10
+
+        if nthDigit == digit:
+            digitCount += 1
+
+        n //= 10
+
+    return digitCount
 
 def mostFrequentDigit(n):
-    return 42
+    if n == 0: return 0 # Special Case.
+
+    n = abs(n)
+    m = n
+
+    maxCount      = 0
+    maxCountDigit = -1
+    currentCount  = 0
+    while n > 0:
+        nthDigit = n % 10
+        currentCount = countDigitOccurrence(m, nthDigit)
+
+        if currentCount > maxCount:
+            maxCount = currentCount
+            maxCountDigit = nthDigit
+        elif currentCount == maxCount:
+            maxCountDigit = min(nthDigit, maxCountDigit)
+
+        n //= 10
+    return maxCountDigit
+
+def isPowerfulNumber(n):
+    if n == 1: return True
+
+    isInvalid = False
+
+    for divisor in range(2, n + 1):
+        if n % divisor == 0 and isPrime(divisor):
+            if n % (divisor ** 2) != 0 :
+                isInvalid = True
+
+    return not isInvalid
 
 def nthPowerfulNumber(n):
-    return 42
+    found = 0
+    guess = 0
+
+    while found  <= n:
+        guess += 1
+        if isPowerfulNumber(guess):
+            found += 1
+    return guess
+
+def rotateNumber(n, numDigits):
+    nthDigit = n % 10
+    n //= 10
+    n += nthDigit * (10 ** (numDigits -1))
+
+    return n
+
+def isCircularPrime(n):
+    numDigits = digitCount(n)
+
+    if isPrime(n):
+        for i in range(numDigits):
+            n = rotateNumber(n, numDigits)
+            if not isPrime(n):
+                return False
+        return True
+    return False
 
 def nthCircularPrime(n):
-    return 42
+    found = 0
+    guess = 0
+    while found <= n:
+        guess += 1
+        if isCircularPrime(guess):
+            found += 1
+    return guess
 
 def findZeroWithBisection(f, x0, x1, epsilon):
-    return 42
+    while not almostEqual(x0, x1, epsilon):
+        xmid = (x0 + x1) / 2
+
+        if f(xmid) == 0:
+            return xmid
+        elif f(x0) * f(x1) >= 0:
+            return None
+        elif f(xmid) * f(x0) > 0:
+            x0 = xmid
+        else:
+            x1 = xmid
+    return (x0 + x1) / 2
 
 ######################################################################
 # ignore_rest: The autograder will ignore all code below here
