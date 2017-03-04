@@ -68,6 +68,16 @@ def isPrime(n):
             return False
     return True
 
+def nthPrime(n):
+    found = 0
+    guess = 0
+
+    while found <= n:
+        guess += 1
+        if isPrime(guess):
+            found += 1
+
+    return guess
 
 def pi(n):
     count = 0
