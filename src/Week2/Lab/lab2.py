@@ -23,17 +23,138 @@ def roundHalfUp(d):
 
 #################################################
 
+def digitCount(n):
+    if n == 0: return 1
+    count = 0
+    n = abs(n)
+
+    while n > 0:
+        count += 1
+        n //= 10
+    return count
+
+def rotateNumber(n, numDigits):
+    nthDigit = n % 10
+    n //= 10
+    n += nthDigit * (10 ** (numDigits -1))
+
+    return n
+
 def isRotation(x, y):
-    return 42
+    numDigits = digitCount(y)
+
+    for i in range(numDigits):
+        if x == y: return True
+        y = rotateNumber(y, numDigits)
+
+    return False
+
+def isPrime(n):
+    if n == 2:
+        return True
+    elif (n < 2) or (n % 2 == 0):
+        return False
+
+    for factor in range(3, math.floor(math.sqrt(n) + 1), 2):
+        if n % factor == 0:
+            return False
+    return True
+
+
+# Original: 8712, 9801, 87912, 98901, 879912
+# Reversed: 2178, 1089, 21978, 10989, 219978
+def reverseNumber(n):
+    exponent = numDigits = digitCount(n)
+    reversedNum = 0
+
+    for i in range(numDigits):
+        nthDigit = n % 10
+        n //= 10
+        reversedNum += nthDigit * (10 ** (exponent - 1))
+        exponent -= 1
+
+
+    return reversedNum
+
+def isEmirpsPrime(n):
+    return isPrime(n) and (reverseNumber(n) != n) and isPrime(reverseNumber(n))
 
 def nthEmirpsPrime(n):
-    return 42
+    found = 0
+    guess = 0
 
-def carrylessAdd(x1, x2):
-    return 42
+    while found <= n:
+        guess += 1
+        if isEmirpsPrime(guess):
+            found += 1
+    return guess
+
+def carrylessAdd(x, y):
+    nxDigits = digitCount(x)
+    nyDigits = digitCount(y)
+    carrylessSum = 0
+
+    for i in range(max(nxDigits, nyDigits)):
+        nthDigitX = x % 10
+        nthDigitY = y % 10
+
+        nthDigitS = nthDigitX + nthDigitY
+        if nthDigitS >= 10: nthDigitS -= 10
+
+        carrylessSum += nthDigitS * (10 ** i)
+        x //= 10
+        y //= 10
+
+    return carrylessSum
+
+
+def hasEveryDigit(n):
+    digit0Present = False
+    digit1Present = False
+    digit2Present = False
+    digit3Present = False
+    digit4Present = False
+    digit5Present = False
+    digit6Present = False
+    digit7Present = False
+    digit8Present = False
+    digit9Present = False
+
+    while n > 0:
+        nthDigit = n % 10
+        if   nthDigit == 0: digit0Present = True
+        elif nthDigit == 1: digit1Present = True
+        elif nthDigit == 2: digit2Present = True
+        elif nthDigit == 3: digit3Present = True
+        elif nthDigit == 4: digit4Present = True
+        elif nthDigit == 5: digit5Present = True
+        elif nthDigit == 6: digit6Present = True
+        elif nthDigit == 7: digit7Present = True
+        elif nthDigit == 8: digit8Present = True
+        elif nthDigit == 9: digit9Present = True
+
+        n //= 10
+
+    return digit0Present and digit1Present and \
+           digit2Present and digit2Present and \
+           digit3Present and digit4Present and \
+           digit5Present and digit6Present and \
+           digit7Present and digit8Present and \
+           digit9Present
+
+def hasProperty309(n):
+    return hasEveryDigit(n ** 5)
 
 def nthWithProperty309(n):
-    return 42
+    found = 0
+    guess = 0
+
+    while found <= n:
+        guess += 1
+        if hasProperty309(guess):
+            found += 1
+
+    return guess
 
 ######################################################################
 # ignore_rest: The autograder will ignore all code below here

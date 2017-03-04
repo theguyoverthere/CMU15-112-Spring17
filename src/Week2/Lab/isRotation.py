@@ -9,26 +9,44 @@ def digitCount(n):
     while n > 0:
         count += 1
         n //= 10
+
     return count
 
-def testDigitCount():
-    print('Test digitCount()...', end='')
-    assert(digitCount(0) == 1)
-    assert(digitCount(5) == 1)
-    assert(digitCount(-5) == 1)
-    assert(digitCount(42) == 2)
-    assert(digitCount(-42) == 2)
-    assert(digitCount(121) == 3)
-    assert(digitCount(-121) == 3)
-    assert(digitCount(-10002000) == 8)
-    print('Passed')
+def rotateNumber(n, numDigits):
+    nthDigit = n % 10
+    n //= 10
+    n += nthDigit * (10 ** (numDigits -1))
+
+    return n
+
+def isRotation(x, y):
+    numDigits = digitCount(y)
+
+    for i in range(numDigits):
+        if x == y: return True
+        y = rotateNumber(y, numDigits)
+
+    return False
+
+def testIsRotation():
+    print('Testing isRotation()... ', end='')
+    assert(isRotation(1, 1) == True)
+    assert(isRotation(1234, 4123) == True)
+    assert(isRotation(1234, 3412) == True)
+    assert(isRotation(1234, 2341) == True)
+    assert(isRotation(1234, 1234) == True)
+    assert(isRotation(1234, 123) == False)
+    assert(isRotation(1234, 12345) == False)
+    assert(isRotation(1234, 1235) == False)
+    assert(isRotation(1234, 1243) == False)
+    print('Passed.')
 
 #################################################
 # testAll and main
 #################################################
 
 def testAll():
-    testDigitCount()
+    testIsRotation()
 
 def main():
     bannedTokens = (
@@ -54,3 +72,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+

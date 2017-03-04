@@ -1,8 +1,19 @@
 import cs112_s17_linter
+import math
+
+def isPrime(n):
+    if n == 2:
+        return True
+    elif (n < 2) or (n % 2 == 0):
+        return False
+
+    for factor in range(3, math.floor(math.sqrt(n) + 1), 2):
+        if n % factor == 0:
+            return False
+    return True
 
 def digitCount(n):
     if n == 0: return 1
-
     count = 0
     n = abs(n)
 
@@ -11,24 +22,50 @@ def digitCount(n):
         n //= 10
     return count
 
-def testDigitCount():
-    print('Test digitCount()...', end='')
-    assert(digitCount(0) == 1)
-    assert(digitCount(5) == 1)
-    assert(digitCount(-5) == 1)
-    assert(digitCount(42) == 2)
-    assert(digitCount(-42) == 2)
-    assert(digitCount(121) == 3)
-    assert(digitCount(-121) == 3)
-    assert(digitCount(-10002000) == 8)
-    print('Passed')
+# Original: 8712, 9801, 87912, 98901, 879912
+# Reversed: 2178, 1089, 21978, 10989, 219978
+def reverseNumber(n):
+    exponent = numDigits = digitCount(n)
+    reversedNum = 0
+
+    for i in range(numDigits):
+        nthDigit = n % 10
+        n //= 10
+        reversedNum += nthDigit * (10 ** (exponent - 1))
+        exponent -= 1
+
+
+    return reversedNum
+
+def isEmirpsPrime(n):
+    return isPrime(n) and (reverseNumber(n) != n) and isPrime(reverseNumber(n))
+
+def nthEmirpsPrime(n):
+    found = 0
+    guess = 0
+
+    while found <= n:
+        guess += 1
+        if isEmirpsPrime(guess):
+            found += 1
+    return guess
+
+def testNthEmirpsPrime():
+    print('Testing nthEmirpsPrime()... ', end='')
+    assert(nthEmirpsPrime(0) == 13)
+    assert(nthEmirpsPrime(5) == 73)
+    assert(nthEmirpsPrime(10) == 149)
+    assert(nthEmirpsPrime(20) == 701)
+    assert(nthEmirpsPrime(30) == 941)
+    print('Passed.')
+
 
 #################################################
 # testAll and main
 #################################################
 
 def testAll():
-    testDigitCount()
+    testNthEmirpsPrime()
 
 def main():
     bannedTokens = (
