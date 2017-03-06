@@ -13,7 +13,7 @@ def digitCount(n):
 def carrylessAdd(x, y):
     nxDigits = digitCount(x)
     nyDigits = digitCount(y)
-    carrylessSum = 0
+    carryLessSum = 0
 
     for i in range(max(nxDigits, nyDigits)):
         nthDigitX = x % 10
@@ -22,29 +22,44 @@ def carrylessAdd(x, y):
         nthDigitS = nthDigitX + nthDigitY
         if nthDigitS >= 10: nthDigitS %= 10
 
-        carrylessSum += nthDigitS * (10 ** i)
+        carryLessSum += nthDigitS * (10 ** i)
         x //= 10
         y //= 10
 
-    return carrylessSum
+    return carryLessSum
 
-def testCarrylessAdd():
-    print('Testing carrylessAdd()... ', end='')
-    assert(carrylessAdd(785, 376) == 51)
-    assert(carrylessAdd(0, 376) == 376)
-    assert(carrylessAdd(785, 0) == 785)
-    assert(carrylessAdd(30, 376) == 306)
-    assert(carrylessAdd(785, 30) == 715)
-    assert(carrylessAdd(12345678900, 38984034003) == 40229602903)
-    print('Passed.')
+def carrylessMultiply(x, y):
+    previousRunningSum = 0
+    numDigits = digitCount(y)
 
+    for i in range(numDigits):
+        nthDigits = y % 10
+        rowSum    = 0
+
+        for j in range(nthDigits):
+            carryLessSum = carrylessAdd(rowSum, x)
+            rowSum = carryLessSum
+
+        rowSum *= (10 ** i)
+
+        runningSum = carrylessAdd(rowSum, previousRunningSum)
+        previousRunningSum = runningSum
+        y //= 10
+
+    return runningSum
+
+def testCarrylessMultiply():
+    print("Testing carrylessMultiply()...", end="")
+    assert(carrylessMultiply(643, 59) == 417)
+    assert(carrylessMultiply(6412, 387) == 807234)
+    print("Passed!")
 
 #################################################
 # testAll and main
 #################################################
 
 def testAll():
-    testCarrylessAdd()
+    testCarrylessMultiply()
 
 def main():
     bannedTokens = (
@@ -56,14 +71,14 @@ def main():
         'try,with,yield,' +
         #'abs,all,any,bool,chr,complex,divmod,float,' +
         #'int,isinstance,max,min,pow,print,round,sum,' +
-        #'range,reversed,'+
+        #'range,reversed,str,' # added 'str' for play112 bonus
         '__import__,ascii,bin,bytearray,bytes,callable,' +
         'classmethod,compile,delattr,dict,dir,enumerate,' +
         'eval,exec,filter,format,frozenset,getattr,globals,' +
         'hasattr,hash,help,hex,id,input,issubclass,iter,' +
         'len,list,locals,map,memoryview,next,object,oct,' +
         'open,ord,property,repr,set,' +
-        'setattr,slice,sorted,staticmethod,str,super,tuple,' +
+        'setattr,slice,sorted,staticmethod,super,tuple,' +
         'type,vars,zip,importlib,imp,string,[,],{,}')
     cs112_s17_linter.lint(bannedTokens=bannedTokens) # check style rules
     testAll()
