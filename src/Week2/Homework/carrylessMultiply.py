@@ -28,6 +28,15 @@ def carrylessAdd(x, y):
 
     return carryLessSum
 
+# 643 x
+#  59 y
+# ---
+#  467  (643 * 9)                ==  Multiple Carryless Sum
+# 005   carryless add (643 * 50) == (Multiple Carryless Sum * 10) Normal Multiplication
+# ----- Carryless Sum
+#  417
+#
+
 def carrylessMultiply(x, y):
     previousRunningSum = 0
     numDigits = digitCount(y)
