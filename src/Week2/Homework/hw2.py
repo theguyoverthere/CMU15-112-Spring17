@@ -219,8 +219,9 @@ def carrylessAdd(x, y):
 # 643 x
 #  59 y
 # ---
-#  467  (643 * 9)                ==  Multiple Carryless Sum
-# 005   carryless add (643 * 50) == (Multiple Carryless Sum * 10) Normal Multiplication
+# 467  (643 * 9)                ==  Multiple Carryless Sum
+# Normal Multiplication in the line below
+# 005   carryless add (643 * 50) == (Multiple Carryless Sum * 10)
 # ----- Carryless Sum
 #  417
 #
@@ -386,8 +387,12 @@ def isFull(board):
 def isWin(board):
     # Loop while the board size is greater than 2
     while board > 99:
-        if kthDigit(board, 0) == 2 and kthDigit(board, 1) == 1 and kthDigit(board, 2) == 1:
+        if (kthDigit(board, 0) == 2 and
+            kthDigit(board, 1) == 1 and
+            kthDigit(board, 2) == 1):
+
             return True
+
         board //= 10
 
     return False
@@ -458,7 +463,8 @@ def play112(game):
                 if isWin(board):
                     return str(board) + ": Player " + str(playerTurn) + " wins!"
             else: #Unsuccessful move
-                return str(prevBoard) + ":" + " Player " + str(playerTurn) + ": " + board
+                return str(prevBoard) + \
+                       ":" + " Player " + str(playerTurn) + ": " + board
 
         game = clearLeftmostDigit(game)
 

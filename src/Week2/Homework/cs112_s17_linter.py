@@ -104,8 +104,8 @@ def roundHalfEven(d):
     def lintLineWidths(self):
         for i in range(len(self.lines)):
             line = self.lines[i]
-            if (len(line) > 120):
-                self.oops('Line width is >120 characters',
+            if (len(line) > 80):
+                self.oops('Line width is >80 characters',
                           line=i+1, text='\n'+line[:81]+'...')
 
     def lintTopLevel(self):
