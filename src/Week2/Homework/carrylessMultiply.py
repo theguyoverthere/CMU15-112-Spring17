@@ -31,8 +31,9 @@ def carrylessAdd(x, y):
 # 643 x
 #  59 y
 # ---
-#  467  (643 * 9)                ==  Multiple Carryless Sum
-# 005   carryless add (643 * 50) == (Multiple Carryless Sum * 10) Normal Multiplication
+# 467  (643 * 9)                ==  Multiple Carryless Sum
+# Normal Multiplication in the line below
+# 005   carryless add (643 * 50) == (Multiple Carryless Sum * 10)
 # ----- Carryless Sum
 #  417
 #
