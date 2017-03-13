@@ -1,44 +1,44 @@
 import cs112_s17_linter
 import string
 
-def minNonZeroDigit(n):
-    smallestNonZeroDigit = 9
+def maxNonZeroDigit(n):
+    largestNonZeroDigit = 0
 
     while n > 0:
         nthDigit = n % 10
 
-        if (nthDigit != 0) and (nthDigit < smallestNonZeroDigit):
-            smallestNonZeroDigit = nthDigit
+        if (nthDigit != 0) and (nthDigit > largestNonZeroDigit):
+            largestNonZeroDigit = nthDigit
 
         n //= 10
 
-    return smallestNonZeroDigit
+    return largestNonZeroDigit
 
-def leastFrequentLetters(s):
+def mostFrequentLetters(s):
     if s == "" : return ""
+
     lookupString = ""
     result = ""
 
     for c in string.ascii_lowercase:
         lookupString += str(s.lower().count(c))
 
-    lowestFrequency = str(minNonZeroDigit(int(lookupString)))
+    highestFrequency = str(maxNonZeroDigit(int(lookupString)))
 
     for i in range(len(lookupString)):
-        if lookupString[i] == lowestFrequency:
-            result += string.ascii_lowercase[i]
+        if lookupString[i] == highestFrequency:
+            result += string.ascii_uppercase[i]
 
     return result
 
-def testLeastFrequentLetters():
-    print("Testing leastFrequentLetters()...", end="")
-    assert(leastFrequentLetters("abc def! GFE'cag!!!") == "bd")
-    assert(leastFrequentLetters("abc def! GFE'cag!!!".lower()) == "bd")
-    assert(leastFrequentLetters("abc def! GFE'cag!!!".upper()) == "bd")
-    assert(leastFrequentLetters("") == "")
-    assert(leastFrequentLetters("\t \n&^#$") == "")
-    noq = string.ascii_lowercase.replace('q','')
-    assert(leastFrequentLetters(string.ascii_lowercase + noq) == "q")
+def testMostFrequentLetters():
+    print("Testing mostFrequentLetters()...", end="")
+    assert(mostFrequentLetters("Cat") == 'ACT')
+    assert(mostFrequentLetters("A cat") == 'A')
+    assert(mostFrequentLetters("A cat in the hat") == 'AT')
+    assert(mostFrequentLetters("This is a test") == 'ST')
+    assert(mostFrequentLetters("This is an I test?") == 'IST')
+    assert(mostFrequentLetters("") == "")
     print("Passed!")
 
 #################################################
@@ -46,7 +46,7 @@ def testLeastFrequentLetters():
 #################################################
 
 def testAll():
-    testLeastFrequentLetters()
+    testMostFrequentLetters()
 
 def main():
     bannedTokens = (
