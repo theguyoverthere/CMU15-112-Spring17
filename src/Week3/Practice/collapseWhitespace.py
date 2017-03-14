@@ -9,16 +9,16 @@ def collapseWhitespace(s):
 
     for i in range(len(s)):
         if isSpaceCharacter(s[i]):
-            # Previous space not found OR
-            # a non-space character has been encountered already.
             if not spaceFound:
+                # Previous space not found OR
+                # a non-space character has been encountered already.
                 spaceFound = True
                 result += " "
             continue
         else:
-            #Previous space was found,
-            # but we have a non-space character now
             if spaceFound:
+                #Previous space was found,
+                # but we have a non-space character now
                 spaceFound = False
             result += s[i]
 
