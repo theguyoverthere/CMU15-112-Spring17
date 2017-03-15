@@ -25,40 +25,181 @@ def roundHalfUp(d):
 # Tue Lecture
 #################################################
 
+#################################################
+# vowelCount(s)
+#################################################
 def vowelCount(s):
-    return 42
+    count = 0
 
+    for c in s:
+        if c.lower() in "aeiou":
+            count += 1
+
+    return count
+
+#################################################
+# interleave(s1, s2)
+#################################################
 def interleave(s1, s2):
-    return 42
+    len1 = len(s1)
+    len2 = len(s2)
+    result = ""
 
+    for i in range(max(len1, len2)):
+        if i < len1 :result += s1[i]
+        if i < len2 :result += s2[i]
+
+    return result
+
+#################################################
+# hasBalancedParentheses(s)
+#################################################
 def hasBalancedParentheses(s):
-    return 42
+    leftParenCount = 0
+    rightParenCount = 0
+
+    lSum = 0
+    rSum = 0
+
+    for i in range(len(s)):
+        if s[i] == "(":
+            leftParenCount += 1
+            lSum += i
+        elif s[i] == ")":
+            rightParenCount += 1
+            rSum += i
+
+    return (leftParenCount == rightParenCount) and (lSum <= rSum)
 
 #################################################
 # Wed Recitation
 #################################################
 
+#################################################
+# rotateStringLeft(s, k)
+#################################################
 def rotateStringLeft(s, k):
-    return 42
+    k %= len(s)
 
+    leftSplit = s[:k]
+    rightSplit = s[k:]
+
+    return rightSplit + leftSplit
+
+#################################################
+# rotateStringRight(s, k)
+#################################################
 def rotateStringRight(s, k):
-    return 42
+    k %= len(s)
 
+    leftSplit = s[:-k]
+    rightSplit = s[-k:]
+
+    return rightSplit + leftSplit
+
+################################################
+# wordWrap(text, width)
+################################################
 def wordWrap(text, width):
-    return 42
+    result = ""
+    resultWithNoSpaces = ""
+    charCount = 0
 
-def largestNumber(s):
-    return 42
+    for c in text:
+        charCount += 1
+        result += c
+
+        if charCount % 4 == 0 :
+            result += '\n'
+
+    for line in result.splitlines():
+        resultWithNoSpaces += line.strip().replace(" ", "*") + '\n'
+
+    return resultWithNoSpaces[:-1]
+
+################################################
+# largestNumber(n)
+################################################
+def largestNumber(n):
+    largestNum = -1
+
+    for word in n.split():
+        if word.isdigit() and int(word) > largestNum:
+            largestNum = int(word)
+
+    if largestNum != -1 :
+        return largestNum
+    else:
+        return None
+
 
 #################################################
 # Thu Lecture
 #################################################
 
+################################################
+# longestSubpalindrome(s)
+################################################
+def isPalindrome(s):
+    for i in range(len(s)):
+        if s[i] != s[len(s) - i -1]:
+            return False
+    return True
+
+#Brute Force it.
 def longestSubpalindrome(s):
-    return 42
+    if isPalindrome(s):
+        return s
+
+    longestPalindrome = ""
+    palindromeLength = 0
+
+    for i in range(len(s)):
+        for j in range(i + 1, len(s)):
+            substring = s[i : j]
+
+            if isPalindrome(substring):
+                if len(substring) == palindromeLength:
+                    if substring > longestPalindrome:
+                        longestPalindrome = substring
+                elif len(substring) > palindromeLength:
+                    longestPalindrome = substring
+                    palindromeLength = j - i
+
+    return longestPalindrome
+
+################################################
+# leastFrequentLetters(s)
+################################################
+
+def minNonZeroDigit(n):
+    smallestNonZeroDigit = 9
+
+    while n > 0:
+        nthDigit = n % 10
+
+        if (nthDigit != 0) and (nthDigit < smallestNonZeroDigit):
+            smallestNonZeroDigit = nthDigit
+
+        n //= 10
+
+    return smallestNonZeroDigit
 
 def leastFrequentLetters(s):
-    return 42
+    if s == "" : return ""
+    lookupString = ""
+    result = ""
+
+    for c in string.ascii_lowercase:
+        lookupString += str(s.lower().count(c))
+
+    lowestFrequency = str(minNonZeroDigit(int(lookupString)))
+
+    for i in range(len(lookupString)):
+        if lookupString[i] == lowestFrequency:
+            result += string.ascii_lowercase[i]
+
+    return result
 
 # some interactive console game!
 
@@ -66,32 +207,291 @@ def leastFrequentLetters(s):
 # Extra Practice
 #################################################
 
+#################################################
+# sameChars(s1, s2)
+#################################################
+def compareLookupStrings(n1, n2):
+
+    if (n1 == 0 and n2 != 0) or (n1 != 0 and n2 == 0):
+        return False
+
+    while n1 > 0 and n2 > 0:
+        nthDigit1 = n1 % 10
+        nthDigit2 = n2 % 10
+
+        if (nthDigit1 * nthDigit2 == 0) and (nthDigit1 + nthDigit2 > 0):
+            return False
+
+        n1 //= 10
+        n2 //= 10
+
+    return True
+
 def sameChars(s1, s2):
-    return 42
+    if isinstance(s1, str) and isinstance(s2, str):
+        if s1 == "" and s2 == "": return True
+        else:
+            lookupString1 = ""
+            lookupString2 = ""
+
+            for c in string.ascii_letters:
+                lookupString1 += str(s1.count(c))
+                lookupString2 += str(s2.count(c))
+
+            return compareLookupStrings(int(lookupString1), int(lookupString2))
+
+    return False
+
+#################################################
+# mostFrequentLetters(s)
+#################################################
+def maxNonZeroDigit(n):
+    largestNonZeroDigit = 0
+
+    while n > 0:
+        nthDigit = n % 10
+
+        if (nthDigit != 0) and (nthDigit > largestNonZeroDigit):
+            largestNonZeroDigit = nthDigit
+
+        n //= 10
+
+    return largestNonZeroDigit
 
 def mostFrequentLetters(s):
-    return 42
+    if s == "" : return ""
 
+    lookupString = ""
+    result = ""
+
+    for c in string.ascii_lowercase:
+        lookupString += str(s.lower().count(c))
+
+    highestFrequency = str(maxNonZeroDigit(int(lookupString)))
+
+    for i in range(len(lookupString)):
+        if lookupString[i] == highestFrequency:
+            result += string.ascii_uppercase[i]
+
+    return result
+
+#################################################
+# areAnagrams(s1, s2)
+#################################################
 def areAnagrams(s1, s2):
-    return 42
+    lookupString1 = ""
+    lookupString2 = ""
+
+    for c in string.ascii_lowercase:
+        lookupString1 += str(s1.lower().count(c))
+        lookupString2 += str(s2.lower().count(c))
+
+    return lookupString1 == lookupString2
+
+#################################################
+# collapseWhitespace(s)
+#################################################
+def isSpaceCharacter(s):
+    return (s == " ") or (s == '\n') or (s == '\t')
 
 def collapseWhitespace(s):
-    return 42
+    result = ""
+    spaceFound = False
 
+    for i in range(len(s)):
+        if isSpaceCharacter(s[i]):
+            if not spaceFound:
+                # Previous space not found OR
+                # a non-space character has been encountered already.
+                spaceFound = True
+                result += " "
+            continue
+        else:
+            if spaceFound:
+                #Previous space was found,
+                # but we have a non-space character now
+                spaceFound = False
+            result += s[i]
+
+    return  result
+
+#################################################
+# replace(s1, s2, s3)
+#################################################
 def replace(s1, s2, s3):
-    return 42
+    previousResult = s1
 
+    if s2 == "" :
+        result = ""
+        for i in range(len(s1)):
+            result += s3 + s1[i]
+
+        return result + s3
+
+    while previousResult.find(s2) != -1:
+        if previousResult == s2: break
+
+        result = ""
+        result += (previousResult[:previousResult.find(s2)] +
+                   s3 +
+                   previousResult[previousResult.find(s2) + len(s2):])
+        previousResult = result
+
+    return previousResult
+
+#################################################
+# encodeOffset(s, d)
+#################################################
 def encodeOffset(s, d):
-    return 42
+    d %= 26
+    result = ""
+
+    for i in range(len(s)):
+        if s[i].isalpha():
+            if s[i].islower():
+                # Look for a wraparound.
+                if ord(s[i]) + d > ord('z'):               # Positive Wraparound
+                    delta = ord(s[i]) + d - ord('z')
+                    result += chr(ord('a') + delta - 1)
+                elif ord(s[i]) + d < ord('a'):             # Negative Wraparound
+                    delta = abs(ord(s[i]) + d - ord('a'))
+                    result += chr(ord('z') - delta + 1)
+                else:                                      # No Wrapping
+                    result += chr(ord(s[i]) + d)
+
+            else:
+                # Look for a wraparound.
+                if ord(s[i]) + d > ord('Z'):               # Positive Wraparound
+                    delta = ord(s[i]) + d - ord('Z')
+                    result += chr(ord('A') + delta - 1)
+                elif ord(s[i]) + d < ord('A'):             # Negative Wraparound
+                    delta = abs(ord(s[i]) + d - ord('A'))
+                    result += chr(ord('Z') - delta + 1)
+                else:                                      # No Wrapping
+                    result += chr(ord(s[i]) + d)
+        else:
+            result += s[i]
+
+    return result
+
+#################################################
+# decodeOffset(s, d)
+#################################################
+def encodeOffset(s, d):
+    d %= 26
+    result = ""
+
+    for i in range(len(s)):
+        if s[i].isalpha():
+            if s[i].islower():
+                # Look for a wraparound.
+                if ord(s[i]) + d > ord('z'):               # Positive Wraparound
+                    delta = ord(s[i]) + d - ord('z')
+                    result += chr(ord('a') + delta - 1)
+                elif ord(s[i]) + d < ord('a'):             # Negative Wraparound
+                    delta = abs(ord(s[i]) + d - ord('a'))
+                    result += chr(ord('z') - delta + 1)
+                else:                                      # No Wrapping
+                    result += chr(ord(s[i]) + d)
+
+            else:
+                # Look for a wraparound.
+                if ord(s[i]) + d > ord('Z'):               # Positive Wraparound
+                    delta = ord(s[i]) + d - ord('Z')
+                    result += chr(ord('A') + delta - 1)
+                elif ord(s[i]) + d < ord('A'):             # Negative Wraparound
+                    delta = abs(ord(s[i]) + d - ord('A'))
+                    result += chr(ord('Z') - delta + 1)
+                else:                                      # No Wrapping
+                    result += chr(ord(s[i]) + d)
+        else:
+            result += s[i]
+
+    return result
+
 
 def decodeOffset(s, d):
-    return 42
+    return encodeOffset(s, -d)
+
+#################################################
+# encrypt(msg, pwd)
+#################################################
+def getMessageToEncrypt(msg):
+    message = ""
+
+    for i in range(len(msg)):
+        if msg[i].isalpha():
+            message += msg[i].upper()
+
+    return message
+
+def getShifts(password, length):
+    result = password
+
+    if len(password) < length:
+        delta =  length - len(password)
+
+        while delta > len(password):
+            result += password
+            delta -= len(password)
+
+        for i in range(delta):
+            result += password[i]
+
+    return result
 
 def encrypt(msg, pwd):
-    return 42
+    if pwd.isupper():
+        return "password must be all lowercase"
 
-def decrypt(msg, pwd):
-    return 42
+    message = getMessageToEncrypt(msg)
+    shiftString = getShifts(pwd, len(message))
+    cipherText = ""
+
+    for i in range(len(message)):
+        d = ord(shiftString[i]) - ord('a')
+
+        if ord(message[i]) + d > ord('Z'):            # Wraparound
+            delta = ord(message[i]) +  d - ord('Z')
+            cipherText += chr(ord('A') + delta - 1)
+        else:
+            cipherText += chr(ord(message[i]) + d)
+
+    return cipherText
+
+#################################################
+# decrypt(msg, pwd)
+#################################################
+def getShifts(password, length):
+    result = password
+
+    if len(password) < length:
+        delta =  length - len(password)
+
+        while delta > len(password):
+            result += password
+            delta -= len(password)
+
+        for i in range(delta):
+            result += password[i]
+
+    return result
+
+def decrypt(ciphertext, password):
+
+    shiftString = getShifts(password, len(ciphertext))
+    message = ""
+
+    for i in range(len(ciphertext)):
+        d = ord(shiftString[i]) - ord('a')
+
+        if ord(ciphertext[i]) - d < ord('A'):            # Wraparound
+            delta = abs(ord(ciphertext[i]) -  d - ord('A'))
+            message += chr(ord('Z') - delta + 1)
+        else:
+            message += chr(ord(ciphertext[i]) - d)
+
+    return message
 
 ######################################################################
 # ignore_rest: The autograder will ignore all code below here
