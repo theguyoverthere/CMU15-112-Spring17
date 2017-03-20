@@ -1,6 +1,32 @@
 import cs112_s17_linter
 import math
 
+def reverseString(s):
+    return s[::-1]
+
+def decodeRightLeftCipher(encodedMessage):
+    rows = int (encodedMessage[:1])
+    encodedMessage = encodedMessage[1:]
+    column = int (len(encodedMessage) / rows)
+    cipherText = ""
+    originalText = ""
+
+    # Reverse alternate blocks of characters so that they
+    # all read left to right.
+    for i in range(0, len(encodedMessage), column):
+        if (i / column) % 2 == 1:
+            cipherText += reverseString(encodedMessage[i: i + column])
+        else:
+            cipherText += encodedMessage[i: i + column]
+
+    for i in range(column):
+        for j in range(i, len(cipherText), column):
+            if cipherText[j: j + 1].isupper():
+                originalText += cipherText[j: j + 1]
+
+    return originalText
+
+
 def encodeRightLeftCipher(message, rows):
     cipherText = ""
     rowCount = 0
@@ -22,6 +48,7 @@ def encodeRightLeftCipher(message, rows):
         filler = ord('z')
 
         for k in range(rowCount, rowCount + rows - noFullRows):
+
             rowsBelow = rows - k - 1
 
             if k % 2 == 0:
@@ -38,25 +65,22 @@ def encodeRightLeftCipher(message, rows):
 
     return str(rows) + cipherText
 
-def testEncodeRightLeftCipher():
-    print("Testing encodeRightLeftCipher()...", end="")
+def testDecodeRightLeftCipher():
+    print("testing decodeRightLeftCipher()...", end="")
     text = "WEATTACKATDAWN"
-    rows = 4
-    # W T A W
-    # E A T N
-    # A C D z
-    # T K A y
-    rightLeft = "4"+"WTAWNTAEACDzyAKT"
+    rows = 6
     cipher = encodeRightLeftCipher(text, rows)
-    assert(rightLeft == cipher)
+    plaintext = decodeRightLeftCipher(cipher)
+    assert(plaintext == text)
     print("passed!")
+
 
 #################################################
 # testAll and main
 #################################################
 
 def testAll():
-    testEncodeRightLeftCipher()
+    testDecodeRightLeftCipher()
 
 def main():
     bannedTokens = (
@@ -82,3 +106,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
