@@ -25,7 +25,7 @@ def encodeRightLeftCipher(message, rows):
             rowsBelow = rows - k - 1
 
             if k % 2 == 0:
-                for j in range (k, len(message) - noFullRows - 1, rows):
+                for j in range (k, ((rows * columns) - 1) - rows + 1, rows):
                     cipherText += message[j : j + 1]
                 cipherText += chr(filler)
             else:

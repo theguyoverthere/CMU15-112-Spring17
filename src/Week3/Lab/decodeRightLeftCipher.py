@@ -5,9 +5,13 @@ def reverseString(s):
     return s[::-1]
 
 def decodeRightLeftCipher(encodedMessage):
-    rows = int (encodedMessage[:1])
-    encodedMessage = encodedMessage[1:]
-    column = int (len(encodedMessage) / rows)
+
+    rows = ""
+    while encodedMessage[:1].isdigit():
+        rows += encodedMessage[:1]
+        encodedMessage = encodedMessage[1:]
+
+    column = int (len(encodedMessage) / int(rows))
     cipherText = ""
     originalText = ""
 
@@ -48,11 +52,10 @@ def encodeRightLeftCipher(message, rows):
         filler = ord('z')
 
         for k in range(rowCount, rowCount + rows - noFullRows):
-
             rowsBelow = rows - k - 1
 
             if k % 2 == 0:
-                for j in range (k, len(message) - noFullRows - 1, rows):
+                for j in range (k, ((rows * columns) - 1) - rows + 1, rows):
                     cipherText += message[j : j + 1]
                 cipherText += chr(filler)
             else:
