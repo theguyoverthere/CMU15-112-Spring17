@@ -15,25 +15,26 @@ def bestStudentAndAvg(gradebook):
 
     for line in gradebook.splitlines():
 
-        if len(line.strip()) != 0:
-            if line.startswith("#") or line.startswith(" "):
+        if (len(line.strip()) == 0 or
+            line.startswith("#")   or
+            line.startswith(" ")):
                 continue
-            else:
-                sum = 0
-                count = 0
+        else:
+            sum = 0
+            count = 0
+            
+            for word in line.split(","):
+                if word.isalpha():
+                    name = word
+                else:
+                    count += 1
+                    sum += int(word)
 
-                for word in line.split(","):
-                    if word.isalpha():
-                        name = word
-                    else:
-                        count += 1
-                        sum += int(word)
-
-                lineAverage = sum / count
-
-                if lineAverage >= maxAverage:
-                    maxAverage = lineAverage
-                    bestStudent = name
+            studentAverage = sum / count
+            
+            if studentAverage >= maxAverage:
+                maxAverage = studentAverage
+                bestStudent = name
 
     return bestStudent + ":" + str(roundHalfUp(maxAverage))
 
