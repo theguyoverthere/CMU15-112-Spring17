@@ -1,0 +1,79 @@
+def ct1(s):
+	print(chr(ord('G') + ord(s[1]) - ord(s[0])), end='')
+	t, count = '', 0
+
+	for c in s:
+		if (not c.isalnum()):
+		   t += c
+
+		if (c.isdigit()):
+		   print(c, end='')
+    	elif (c.isupper()):
+    	   print(c.lower(), end='')
+        else:
+           count += 1
+
+    return ('\tt=%s\t%d' % (t, count))
+
+print(ct1('ae1#B2cD!'))
+
+s = "ae1#B2cD!"
+t = ""
+count = 0
+
+c = ! --->
+t = "#!"
+count = 5
+K1b2d    t=#!    5
+--------------------------------------------------------------------------------
+def	ct2(s):
+		r	=	t	=	''
+		for	i	in	range(len(s)):
+				if	(s[i]	in	s[i+1:]):	r	+=	str(i)
+				else:	t	+=	s[i]
+		return	r	+	t[::-1]
+
+print(ct2('aebacab'))
+
+r = ""
+t = ""
+
+r = 023
+t = ecab
+
+023bace
+--------------------------------------------------------------------------------
+def rc1(s):
+	if (not isinstance(s, str)): return False
+	t = string.ascii_uppercase
+	return ((s[3::3] == t[0:2]) and (s[-1::-2] == t[:5]) and (s.count(s[0]) > 3))
+
+1. s must be a string
+2. t = ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
+3. t[0:2] = AB
+   t[:5]  = ABCDE
+   s.count("A") > 3
+
+   ___A__B
+   E_D_C_B_A
+
+   EEDACEBEA
+--------------------------------------------------------------------------------
+3a. Top-left corner
+ b. canvas.create_oval(30, 80, 80, 120, outline="black", width=1)
+     30,80
+     ------------------ 70, 80
+     |                 |
+     |                 |
+     |30     .         |70
+     |     (50,100)    |
+     |                 |
+     ------------------ 80,120
+    30,120
+
+ c. The full list
+ d l.sort will sort the list itself - destructively
+   sorted(l) returns a sorted version of the list but does not alter l itself.
+
+ e. tuples are immutable lists.
+
