@@ -30,7 +30,7 @@ def isSorted(a):
 
 
 def testIsSorted():
-    print("Testing alternatingSum()...", end="")
+    print("Testing isSorted()...", end="")
     assert(isSorted([]) == True)
     assert(isSorted([1]) == True)
     assert(isSorted([-1]) == True)

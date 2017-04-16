@@ -1,26 +1,26 @@
 #******************************************************************************#
 # Author: Tarique Anwer
 # Date:   16/4/2017
-# Description: vectorSum takes two same-length lists of numbers a and b, and
-#              returns a new list c where c[i] is the sum of a[i] and b[i]
-#              For example, vectorSum([2,4], [20,30]) returns [22, 34]
+# Description: nondestructiveRotateList(a, n) takes a list a and an integer n,
+#              and non-destructively modifies the list so that each element is
+#              shifted to the right by n indices (including wraparound). The
+#              function should then return this new list. True if a2 is a
+#              rotation of a1 and False otherwise.
 #******************************************************************************#
 import cs112_s17_linter
 
-def vectorSum(a, b):
-    c = []
-    for index in range(len(a)):
-        c.append(a[index] + b[index])
+def nondestructiveRotateList(a, n):
+    if n > 0:
+        return a[len(a) - n:] + a[: len(a) - n]
+    else:
+        return a[abs(n):] + a[:abs(n)]
 
-    return c
-
-def testVectorSum():
-    print("Testing vectorSum()...", end="")
-    assert(vectorSum([], []) == [])
-    assert(vectorSum([1], [2]) == [3])
-    assert(vectorSum([1, 2], [-1, -2]) == [0, 0])
-    assert(vectorSum([1, 2, 3], [34, 40, 50]) == [35, 42, 53])
-    assert(vectorSum([-1, -2], [-1, -2]) == [-2, -4])
+def testNondestructiveRotateList():
+    print("Testing nondestructiveRotateList()...", end="")
+    assert(nondestructiveRotateList([1,2,3,4], 1) == [4, 1, 2, 3])
+    assert(nondestructiveRotateList([4,3,2,6,5], 2) == [6, 5, 4, 3, 2])
+    assert(nondestructiveRotateList([1,2,3], 0) == [1,2,3])
+    assert(nondestructiveRotateList([1, 2, 3], -1) == [2, 3, 1])
     print("Passed!")
     return 0
 
@@ -29,7 +29,7 @@ def testVectorSum():
 #################################################
 
 def testAll():
-    testVectorSum()
+    testNondestructiveRotateList()
 
 def main():
     bannedTokens = (

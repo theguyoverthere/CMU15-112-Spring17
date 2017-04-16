@@ -19,7 +19,7 @@ def dotProduct(a, b):
     return sum
 
 def testIsSorted():
-    print("Testing alternatingSum()...", end="")
+    print("Testing dotProduct()...", end="")
     assert(dotProduct([], []) == 0)
     assert(dotProduct([], [1, 2, 3]) == 0)
     assert(dotProduct([1], [1]) == 1)

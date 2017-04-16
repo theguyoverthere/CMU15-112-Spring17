@@ -1,26 +1,38 @@
 #******************************************************************************#
 # Author: Tarique Anwer
 # Date:   16/4/2017
-# Description: vectorSum takes two same-length lists of numbers a and b, and
-#              returns a new list c where c[i] is the sum of a[i] and b[i]
-#              For example, vectorSum([2,4], [20,30]) returns [22, 34]
+# Description: isRotation(a1, a2) that takes two lists, a1 and a2, and returns
+#              True if a2 is a rotation of a1 and False otherwise.
 #******************************************************************************#
 import cs112_s17_linter
 
-def vectorSum(a, b):
-    c = []
-    for index in range(len(a)):
-        c.append(a[index] + b[index])
+# position is a positive integer
+def rotateListLeft(a, position):
+    return a[position + 1:] + a[: position + 1]
 
-    return c
+def isRotation(a1, a2):
+    if len(a1) == len(a2):
+        if a1 == a2: return True
 
-def testVectorSum():
-    print("Testing vectorSum()...", end="")
-    assert(vectorSum([], []) == [])
-    assert(vectorSum([1], [2]) == [3])
-    assert(vectorSum([1, 2], [-1, -2]) == [0, 0])
-    assert(vectorSum([1, 2, 3], [34, 40, 50]) == [35, 42, 53])
-    assert(vectorSum([-1, -2], [-1, -2]) == [-2, -4])
+        for index in range(len(a1)):
+            if a1 == rotateListLeft(a2, index):
+                return True
+
+    return False
+
+def testIsRotation():
+    print("Testing isRotation()...", end="")
+    assert(isRotation([], []) == True)
+    assert(isRotation([1], [1]) == True)
+    assert(isRotation([1, 2], [2, 1]) == True)
+    assert(isRotation([1, 2, 2, -2], [2, 2, -2, 1]) == True)
+    assert(isRotation([3, 2, 0, -2], [-2, 3, 2, 0]) == True)
+    assert(isRotation([43, 2, 0, -2], [-2, 43, 2]) == False)
+    assert(isRotation([2,3,4,5,6], [4,5,6,2,3]) == True)
+    assert(isRotation([2,3,4,5,6], [5,6,2,3,4]) == True)
+    assert(isRotation([2,3,4,5,6], [6,2,3,4,5]) == True)
+    assert(isRotation([2,3,4,5,6], [2,3,4,5,6]) == True)
+    assert(isRotation([2,3,4,5,6], [3,4,5,6,2]) == True)
     print("Passed!")
     return 0
 
@@ -29,7 +41,7 @@ def testVectorSum():
 #################################################
 
 def testAll():
-    testVectorSum()
+    testIsRotation()
 
 def main():
     bannedTokens = (

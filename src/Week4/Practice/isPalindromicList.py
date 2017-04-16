@@ -22,7 +22,7 @@ def isPalindromicList(n):
     return True
 
 def testIsPalindromicList():
-    print("Testing alternatingSum()...", end="")
+    print("Testing isPalindromicList()...", end="")
     assert(isPalindromicList([]) == True)
     assert(isPalindromicList([1]) == True)
     assert(isPalindromicList([-1]) == True)
