@@ -26,6 +26,24 @@
 import cs112_s17_linter
 
 def updateStrikes(pinsPerThrowList):
+    """
+    Creates a list of frames, with each frame consisting of two throws, except
+    possibly the last frame. A frame consisting of a "Strike" is padded with a
+    0 for ease of computation. The player does not actually get a second throw
+    in such a frame.
+
+    :param pinsPerThrowList: A list of consisting of pins knocked down per
+           throw. A strike i.e. a 10 will be directly followed by the first
+           throw of the next frame, NOT 0. A zero in the list means that the
+           player did actually throw, but could not knock any pin down.
+
+    :return: An updated list of pins knocked down, consisting of frames stacked
+             up as lists themselves. For example,
+             [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 4 , 10, 10, 10, 10, 10, 10] is
+             converted to: [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 4],
+                            [10, 0], [10, 0], [10, 0], [10, 10, 10]]
+    """
+
     updatedList = []
     currentFrame = []
     frames = 0
@@ -51,6 +69,36 @@ def updateStrikes(pinsPerThrowList):
     return updatedList
 
 def bowlingScore(pinsPerThrowList):
+    """
+    Uses the function updateStrikes to compute the score in a match. The rules
+    are as follows:
+
+    a) A bowler gets 2 throws per frame for 10 frames, where each frame begins
+       with 10 pins freshly positioned, and the score is the sum of all the pins
+       knocked down.
+
+    b) If the bowler knocks down all 10 pins on the first throw of a frame, it
+       is called a "strike", and they do not get a second throw in that frame;
+       also, the number of pins knocked down in the next two throws are added to
+       the score of that frame
+
+    c) If the bowler knocks down the rest of the 10 pins on the second throw in
+       a frame, that is called a "spare", and the number of pins knocked down in
+       the next throw are added to the score of that frame
+
+    d) If there is a spare or strike in the final frame, then the bowler gets
+       one extra throw in that frame (but if there is a subsequent strike, they
+       still get only that one extra throw).
+
+    :param pinsPerThrowList: A list of consisting of pins knocked down per
+           throw. A strike i.e. a 10 will be directly followed by the first
+           throw of the next frame, NOT 0. A zero in the list means that the
+           player did actually throw, but could not knock any pin down.
+
+    :return: The score returned as an integer. A minimum of 0 and a maximum of
+             300 is possible in a match.
+    """
+
     score  = 0
     frameList = updateStrikes(pinsPerThrowList)
     frameScore = [0] * len(frameList)
@@ -58,12 +106,16 @@ def bowlingScore(pinsPerThrowList):
     for i in range(len(frameList)):
 
         if (i != 0) and (frameList[i - 1])[0] == 10:
+            # A strike in the previous frame, hence add the number of pins
+            # knocked down in the next two throws.
             if i < len(frameList) - 1 and (frameList[i])[0] == 10:
                 frameScore[i - 1] += ((frameList[i])[0] + (frameList[i + 1])[0])
             else:
                 frameScore[i - 1] += ((frameList[i])[0] + (frameList[i])[1])
 
         elif (i != 0) and frameScore[i - 1] == 10:
+            # A "spare" in the previous frame, hence add the number of pins
+            # knocked down in the next throw.
             frameScore[i - 1] += (frameList[i])[0]
 
         for j in range(len(frameList[i])):
