@@ -19,9 +19,6 @@
 #              throw and returns the score. Note that throws skipped due to
 #              strikes are not listed, so the best possible result is a list of
 #              12 10's (all strikes), which would score 300 points.
-# Args:     pinsPerThrowList: List
-# Returns:  Integer
-# Raises:   NA
 #******************************************************************************#
 import cs112_s17_linter
 
