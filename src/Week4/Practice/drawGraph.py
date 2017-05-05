@@ -206,3 +206,19 @@ drawGraph(winWidth=600,winHeight=300,
           fn=strangeFunction,
           xmax=+20, xstep=4,
           ymax=+15, ystep=3)
+
+def sineInDegrees(degrees):
+    return math.sin(math.radians(degrees))
+
+drawGraph(winWidth=600,winHeight=300,
+          fn=sineInDegrees,
+          xmax=+720, xstep=90,
+          ymax=+3, ystep=1)
+
+def tanInDegrees(degrees):
+    return math.tan(math.radians(degrees))
+
+drawGraph(winWidth=600,winHeight=300,
+          fn=tanInDegrees,
+          xmax=+720, xstep=90,
+          ymax=+3, ystep=1)
