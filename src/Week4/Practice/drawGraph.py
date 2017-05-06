@@ -129,7 +129,8 @@ def plotPoints(canvas, winWidth, winHeight, fn, xMax, yMax):
         screenY = cy - y
 
         if oldScreenX is not None:
-            canvas.create_line(oldScreenX, oldScreenY, screenX, screenY, fill="blue")
+            canvas.create_line(oldScreenX, oldScreenY, screenX, screenY,
+                               fill="blue")
 
         (oldScreenX, oldScreenY) = (screenX, screenY)
 
