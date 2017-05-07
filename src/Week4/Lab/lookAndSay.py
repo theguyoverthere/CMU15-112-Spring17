@@ -15,6 +15,20 @@ import cs112_s17_linter
 import copy
 
 def lookAndSay(a):
+    """ Look and Say!
+    Takes a list of numbers that result from "reading off" the initial list
+    using the look-and-say method, using tuples for each (count, value) pair.
+
+    For example:
+    lookAndSay([]) == []
+    lookAndSay([1,1,1]) == [(3,1)]
+    lookAndSay([-1,2,7]) == [(1,-1),(1,2),(1,7)]
+    lookAndSay([3,3,8,-10,-10,-10]) == [(2,3),(1,8),(3,-10)]
+
+    :param a: List of integers.
+    :return: List of tuples consisting of the (count, value) pairs.
+    """
+
     if len(a) == 0: return []
 
     i = 0
