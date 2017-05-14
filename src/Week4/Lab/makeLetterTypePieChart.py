@@ -270,7 +270,7 @@ def makeLetterTypePieChart(text, winWidth=500, winHeight=500):
 
     root.mainloop()
 
-# makeLetterTypePieChart("AB, c de!?!", 500, 500)
-# makeLetterTypePieChart("AB e")
-# makeLetterTypePieChart("A")
-# makeLetterTypePieChart(" ")
+makeLetterTypePieChart("AB, c de!?!", 500, 500)
+makeLetterTypePieChart("AB e")
+makeLetterTypePieChart("A")
+makeLetterTypePieChart(" ")
