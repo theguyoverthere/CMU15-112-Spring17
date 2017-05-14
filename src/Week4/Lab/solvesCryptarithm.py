@@ -137,16 +137,3 @@ def solvesCryptarithm(puzzle, solution):
         return argA + argB == result
 
     return False
-
-assert(solvesCryptarithm("NUMBER+NUMBER=PUZZLE", "UMNZP-BLER"))
-assert(solvesCryptarithm("TILES+PUZZLES=PICTURE", "UISPELCZRT"))
-assert(solvesCryptarithm("COCA+COLA=OASIS", "LOS---A-CI"))
-assert(solvesCryptarithm("CROSS+ROADS=DANGER", "-DOSEARGNC"))
-assert(solvesCryptarithm("SEND+MORE=MONEY","OMY--ENDR-") == False)
-assert(solvesCryptarithm("SEND+MORE=MONEY","OMY-ENDRS") == False)
-assert(solvesCryptarithm("SEND+MORE=MONY","OMY--ENDRS") == False)
-assert(solvesCryptarithm("SEND+MORE=MONEY","MOY--ENDRS") == False)
-assert(solvesCryptarithm("SEND+MORE=MONEY","-OY--ENDRS") == False)
-
-
-

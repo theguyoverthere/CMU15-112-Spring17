@@ -64,5 +64,3 @@ def inverseLookAndSay(a):
             result.append(a[i][1])
 
     return result
-
-assert(inverseLookAndSay([(2,3),(1,8),(3,-10)]) == [3,3,8,-10,-10,-10])
