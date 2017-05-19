@@ -132,9 +132,13 @@ def runSimpleTortoiseProgram(program, winWidth=500, winHeight=500):
 
     angle = 0
     lineWidth = 4
-    textHeight = 0
-    margin = 10
 
+    # Text Display parameters
+    x0 = 10 #Margin
+    y0 = 0
+    textHeight = 10
+
+    #Initial location of the Tortoise
     xTortoise = winWidth / 2
     yTortoise = winHeight / 2
 
@@ -143,11 +147,13 @@ def runSimpleTortoiseProgram(program, winWidth=500, winHeight=500):
     canvas.pack()
 
     for statement in program.splitlines():
-        textHeight += 10
+        y0 += textHeight
 
-        canvas.create_text(margin, textHeight, text=statement,
+        # Add the statement to the canvas
+        canvas.create_text(x0, y0, text=statement,
                            font="Helvetica 7", anchor=W, fill="gray")
 
+        # Draw the tortoise
         if not (statement.strip() == "" or statement.strip().startswith("#")):
             operator = statement.split(" ")[0]
             operand = statement.split(" ")[1]
