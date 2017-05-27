@@ -1,0 +1,50 @@
+import copy
+
+def ct1(A, B, C, D, E):
+    result = [ ]
+    # 0 1 2 3 4 5 6 7 8 9
+    pairs = [(A,B),(A,C),(A,D),(A,E),(B,C),(B,D),(B,E),(C,D),(C,E),(D,E)]
+    for i,pair in enumerate(pairs):
+        (L, M) = pair
+        if (L is M): result.append(i)
+        elif (L == M): result.append(10*i)
+
+    return result
+def f(L):
+    L[0] += 1
+    return L
+
+A = list(range(3))
+B = copy.copy(A)
+C, D, E = A, B+[ ], f(B)
+print(ct1(A, B, C, D, E))
+
+2.
+==
+L = [3,0,5,0,4,0,2]
+def rc1(L):
+	if (not isinstance(L, list)): return False #L must be a list
+
+	result = [ ]
+
+	while (L != [ ]):
+		result.extend([L.pop(), L.pop(0)])
+		L = L[1:-1]
+
+	return (result == list(range(2,6)))
+
+print(rc1(L))
+
+
+3.
+==
+a) (len(a), len(a[0]))
+b) L = copy.deepcopy(a)
+
+
+
+
+4
+==
+if (isPrime(prime) == True)
+isPrime(prime) == False
