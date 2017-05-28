@@ -1,7 +1,7 @@
 from unittest import TestCase
 from src.Week5.Practice.makeMagicSquare import *
 
-class TestCountVowelsAndConsonants(TestCase):
+class TestMakeMagicSquare(TestCase):
     def test_makeMagicSquare_Negative_Integer(self):
         self.assertIsNone(makeMagicSquare(-1))
 
@@ -35,6 +35,7 @@ class TestCountVowelsAndConsonants(TestCase):
                                                [21, 23, 32, 41, 43,  3, 12],
                                                [22, 31, 40, 49,  2, 11, 20]])
 
+    # Generated using Wolfram Alpha
     def test_makeMagicSquare_Nine(self):
         self.assertEquals(makeMagicSquare(9), [[47, 58, 69, 80,  1, 12, 23, 34, 45],
                                                [57, 68, 79,  9, 11, 22, 33, 44, 46],

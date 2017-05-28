@@ -1,7 +1,7 @@
 from unittest import TestCase
 from src.Week5.Practice.isLatinSquare import isLatinSquare
 
-class TestCountVowelsAndConsonants(TestCase):
+class TestIsLatinSquare(TestCase):
     def test_IsLatinSquare_3x3_Reduced(self):
         self.assertTrue(isLatinSquare([[1,2,3],
                                        [2,3,1],
