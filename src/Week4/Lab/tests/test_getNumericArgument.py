@@ -6,4 +6,4 @@ class TestGetNumericArgument(TestCase):
         self.assertEquals(getNumericArgument("NUMBER", "UMNZP-BLER"), 201689)
 
     def test_getNumericArgument_some_indices_present(self):
-        self.assertEquals(getNumericArgument("NUMBER", "U-NZP-BLER"), 201689)
+        self.assertEquals(getNumericArgument("NUMBER", "U-NZP-BLER"), 20689)
