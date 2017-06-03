@@ -5,14 +5,14 @@ class TestIsKnightsTour(TestCase):
     def test_isKnightsTour_8x8(self):
         with self.subTest():
             # Picked up from http://www.geeksforgeeks.org/backtracking-set-1-the-knights-tour-problem/
-            self.assertTrue(isKnightsTour([[ 0,  59,  38,  33,  30,  17,   8,   63],
-                                           [37,  34,  31,  60,   9,  62,  29,  16],
-                                           [58,   1,  36,  39,  32,  27,  18,   7],
-                                           [35,  48,  41,  26,  61,  10,  15,  28],
-                                           [42,  57,   2,  49,  40,  23,   6,  19],
-                                           [47,  50,  45,  54,  25,  20,  11,  14],
-                                           [56,  43,  52,   3,  22,  13,  24,   5],
-                                           [51,  46,  55,  44,  53,   4,  21,  12]]))
+            self.assertTrue(isKnightsTour([[ 1,  60,  39,  34,  31,  18,   9,  64],
+                                           [38,  35,  32,  61,  10,  63,  30,  17],
+                                           [59,   2,  37,  40,  33,  28,  19,   8],
+                                           [36,  49,  42,  27,  62,  11,  16,  29],
+                                           [43,  58,   3,  50,  41,  24,   7,  20],
+                                           [48,  51,  46,  55,  26,  21,  12,  15],
+                                           [57,  44,  53,   4,  23,  14,  25,   6],
+                                           [52,  47,  56,  45,  54,   5,  22,  13]]))
 
             # Picked up from https://www.thanassis.space/knightstour.html
             self.assertTrue(isKnightsTour([[ 1,  38,  55,  34,   3,  36,  19,  22],
@@ -32,7 +32,7 @@ class TestIsKnightsTour(TestCase):
                                            [10, 15,  6, 23,  8],
                                            [25, 22,  9, 14,  5]]))
 
-    def test_isKnightsTour_5x5_1_Not_Present(self):
+    def test_isKnightsTour_5x5_Starts_At_0(self):
         # Picked up from https://www.thanassis.space/knightstour.html
             self.assertFalse(isKnightsTour([[ 0, 20, 17, 12,  3],
                                            [16, 11,  2,  7, 18],
