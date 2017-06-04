@@ -24,6 +24,13 @@
 #              destructively modified to remove the given row and column.
 #******************************************************************************#
 def destructiveRemoveRowAndCol(A, row, col):
+    """
+    Destructively remove a Row and Column from a 2d List.
+    :param A: A 2d List
+    :param row: Row index, which needs to be removed.
+    :param col: Column index, which needs to be removed.
+    :return: None
+    """
     del(A[row])
 
     (rows, columns) = (len(A), len(A[0]))
