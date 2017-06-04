@@ -274,7 +274,7 @@ def areValidBlocks(board):
     #Number of blocks in an NxN board
     N = int(math.sqrt(columns))
 
-    for block in range(N):
+    for block in range(N * N):
         if not isLegalBlock(board, block):
             return False
 
