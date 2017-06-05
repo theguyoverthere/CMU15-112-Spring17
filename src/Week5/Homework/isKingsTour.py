@@ -1,12 +1,12 @@
 #******************************************************************************#
 # Author: Tarique Anwer
 # Date:   3/6/2017
-# Description: Background:  Background: in Chess, a King can move from any
+# Description: Background: In Chess, a King can move from any
 #              square to any adjacent square in any of the 8 possible
 #              directions. A King's Tour is a series of legal King moves so that
 #              every square is visited exactly once. We can represent a Kings
 #              Tour in a 2d list where the numbers represent the order the
-#              squares are visited, going from 1 to N2.
+#              squares are visited, going from 1 to N^2.
 #
 #              For example, consider these 2d lists:
 #              [ [  3, 2, 1 ],        [ [  1, 2, 3 ],      [ [ 3, 2, 1 ],
@@ -69,7 +69,7 @@ def locateStartPosition(board, move):
 def getNextLocation(board, x0, y0, nextMove):
     """
     Given the current location of the King (x0, y0), look around to see if the
-    nextMove can be achieved by one single move of the Knight. If possible,
+    nextMove can be achieved by one single move of the King. If possible,
     return the location (xn, yn), else (-1, -1) indicating no such location
     exists.
 
@@ -95,6 +95,39 @@ def getNextLocation(board, x0, y0, nextMove):
     return -1, -1
 
 def isKingsTour(board):
+    """
+    In Chess, a King can move from any square to any adjacent square in any of
+    the 8 possible directions. A King's Tour is a series of legal King moves so
+    that every square is visited exactly once. We can represent a Kings Tour in
+    a 2d list where the numbers represent the order the squares are visited,
+    going from 1 to N^2.
+
+    For example, consider these 2d lists:
+         [ [  3, 2, 1 ],        [ [  1, 2, 3 ],      [ [ 3, 2, 1 ],
+           [  6, 4, 9 ],          [  7, 4, 8 ],        [ 6, 4, 0 ],
+           [  5, 7, 8 ] ]         [  6, 5, 9 ] ]       [ 5, 7, 8 ] ]
+
+    The first is a legal Kings Tour but the second is not, because there is no
+    way to legally move from the 7 to the 8, and the third is not, because it
+    contains a 0 which is out of range.
+
+    Also, this works not just for 3x3 boards but for any NxN board. For example,
+    here is a legal Kings Tour in a 4x4 board:
+
+        [ [  1, 14, 15, 16],
+          [ 13,  2,  7,  6],
+          [ 12,  8,  3,  5],
+          [ 11, 10,  9,  4]
+        ]
+
+    The function isKingsTour(board) takes a 2d list of integers, which is NxN
+    for some N > 0, and returns True if it represents a legal Kings Tour and
+    False otherwise.
+
+    :param board: The Chess Board with the King's Tour marked by integers.
+    :return: True if the representation is a valid King's Tour. False,
+             otherwise.
+    """
     (rows, columns) = (len(board), len(board[0]))
 
     # Once the entire board has been traversed, ensured that all the numbers
@@ -113,7 +146,7 @@ def isKingsTour(board):
 
     while nextMove < rows * columns:
 
-        #Keep a running track of the sum of the numbers encountered so far.
+        #Keep a running track of the sum of values encountered so far.
         nextMove += 1
 
         moveTotal += nextMove
@@ -128,10 +161,3 @@ def isKingsTour(board):
         (x0, y0) = (xn, yn)
 
     return moveTotal == checkSum
-
-
-print(isKingsTour([[3, 2, 1],
-                   [6, 4, 0],
-                   [5, 7, 8]]))
-
-

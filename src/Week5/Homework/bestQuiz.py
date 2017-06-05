@@ -22,6 +22,10 @@
 #******************************************************************************#
 
 def bestQuiz(gradebook):
+
+    if not gradebook:
+        return None
+
     (rows, columns) = (len(gradebook), len(gradebook[0]))
 
     maxAvg = 0
@@ -42,11 +46,7 @@ def bestQuiz(gradebook):
         if averages[i] > maxAvg:
             maxAvg = averages[i]
 
-    return averages.index(maxAvg)
-
-
-gradebook = [ [88, 80, 91],
-              [68, 100, -1]
-            ]
-
-print(bestQuiz(gradebook))
+    if not averages:
+        return None
+    else:
+        return averages.index(maxAvg)
