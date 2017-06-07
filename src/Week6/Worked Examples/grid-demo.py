@@ -15,35 +15,48 @@ def pointInGrid(x, y, data):
 
 def getCell(x, y, data):
     # aka "viewToModel"
+
     # return (row, col) in which (x, y) occurred or (-1, -1) if outside grid.
     if (not pointInGrid(x, y, data)):
         return (-1, -1)
+
     gridWidth  = data.width - 2*data.margin
     gridHeight = data.height - 2*data.margin
+
     cellWidth  = gridWidth / data.cols
     cellHeight = gridHeight / data.rows
+
     row = (y - data.margin) // cellHeight
     col = (x - data.margin) // cellWidth
+
     # triple-check that we are in bounds
     row = min(data.rows-1, max(0, row))
     col = min(data.cols-1, max(0, col))
+
     return (row, col)
 
 def getCellBounds(row, col, data):
     # aka "modelToView"
+
     # returns (x0, y0, x1, y1) corners/bounding box of given cell in grid
-    gridWidth  = data.width - 2*data.margin
-    gridHeight = data.height - 2*data.margin
+
+    gridWidth  = data.width - 2 * data.margin
+    gridHeight = data.height - 2 * data.margin
+
     columnWidth = gridWidth / data.cols
     rowHeight = gridHeight / data.rows
+
     x0 = data.margin + col * columnWidth
-    x1 = data.margin + (col+1) * columnWidth
     y0 = data.margin + row * rowHeight
+
+    x1 = data.margin + (col+1) * columnWidth
     y1 = data.margin + (row+1) * rowHeight
+
     return (x0, y0, x1, y1)
 
 def mousePressed(event, data):
     (row, col) = getCell(event.x, event.y, data)
+
     # select this (row, col) unless it is selected
     if (data.selection == (row, col)):
         data.selection = (-1, -1)
@@ -60,11 +73,17 @@ def redrawAll(canvas, data):
     # draw grid of cells
     for row in range(data.rows):
         for col in range(data.cols):
+
             (x0, y0, x1, y1) = getCellBounds(row, col, data)
+
             fill = "orange" if (data.selection == (row, col)) else "cyan"
+
             canvas.create_rectangle(x0, y0, x1, y1, fill=fill)
-    canvas.create_text(data.width/2, data.height/2 - 15, text="Click in cells!",
-                       font="Arial 26 bold", fill="darkBlue")
+
+    canvas.create_text(data.width/2, data.height/2 - 15,
+                       text="Click in cells!",
+                       font="Arial 26 bold",
+                       fill="darkBlue")
 
 
 
