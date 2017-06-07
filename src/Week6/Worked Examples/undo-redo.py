@@ -11,13 +11,15 @@ def mousePressed(event, data):
     data.undoList = [ ]
 
 def keyPressed(event, data):
-    if (event.keysym == "u"):
-        if (len(data.points) > 0):
+    if event.keysym == "u":
+        if len(data.points) > 0:
             data.undoList.append(data.points.pop())
-    elif (event.keysym == "r"):
-        if (len(data.undoList) > 0):
+
+    elif event.keysym == "r":
+        if len(data.undoList) > 0:
             data.points.append(data.undoList.pop())
-    elif (event.keysym == "c"):
+
+    elif event.keysym == "c":
         data.points = [ ]
         data.undoList = [ ]
 
@@ -25,7 +27,7 @@ def timerFired(data):
     pass
 
 def redrawAll(canvas, data):
-    if (data.points != []):
+    if data.points:
         canvas.create_polygon(data.points, fill="gold", outline="black")
     canvas.create_text(data.width/2, 20,
                        text="click to add point. u=undo. r=redo. c=clear.")

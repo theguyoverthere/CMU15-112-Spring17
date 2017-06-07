@@ -8,20 +8,25 @@ def init(data):
 
 def loadPlayingCardImages(data):
     cards = 55 # cards 1-52, back, joker1, joker2
+
     data.cardImages = [ ]
+
     for card in range(cards):
-        rank = (card%13)+1
-        suit = "cdhsx"[card//13]
+        rank = (card % 13)+1
+        suit = "cdhsx"[card // 13]
         filename = "playing-card-gifs/%s%d.gif" % (suit, rank)
         data.cardImages.append(PhotoImage(file=filename))
 
 def getPlayingCardImage(data, rank, suitName):
-    suitName = suitName[0].lower() # only car about first letter
+    suitName = suitName[0].lower() # only care about first letter
+
     suitNames = "cdhsx"
+
     assert(1 <= rank <= 13)
     assert(suitName in suitNames)
+
     suit = suitNames.index(suitName)
-    return data.cardImages[13*suit + rank - 1]
+    return data.cardImages[13 * suit + rank - 1]
 
 def getSpecialPlayingCardImage(data, name):
     specialNames = ["back", "joker1", "joker2"]
@@ -38,17 +43,23 @@ def timerFired(data):
 
 def redrawAll(canvas, data):
     suitNames = ["Clubs", "Diamonds", "Hearts", "Spades", "Xtras"]
-    suit = (data.step//10) % len(suitNames)
+
+    suit = (data.step // 10) % len(suitNames)
+
     suitName = suitNames[suit]
     cards = 3 if (suitName == "Xtras") else 13
     margin = 10
     (left, top) = (margin, 40)
-    for rank in range(1,cards+1):
+
+    for rank in range(1, cards + 1):
         image = getPlayingCardImage(data, rank, suitName)
-        if (left + image.width() > data.width):
+
+        if left + image.width() > data.width:
             (left, top) = (margin, top + image.height() + margin)
+
         canvas.create_image(left, top, anchor=NW, image=image)
         left += image.width() + margin
+
     canvas.create_text(data.width/2, 20, text=suitName, font="Arial 28 bold")
 
 

@@ -20,8 +20,8 @@ def getCell(x, y, data):
     if (not pointInGrid(x, y, data)):
         return (-1, -1)
 
-    gridWidth  = data.width - 2*data.margin
-    gridHeight = data.height - 2*data.margin
+    gridWidth  = data.width - 2 * data.margin
+    gridHeight = data.height - 2 * data.margin
 
     cellWidth  = gridWidth / data.cols
     cellHeight = gridHeight / data.rows
@@ -29,9 +29,9 @@ def getCell(x, y, data):
     row = (y - data.margin) // cellHeight
     col = (x - data.margin) // cellWidth
 
-    # triple-check that we are in bounds
-    row = min(data.rows-1, max(0, row))
-    col = min(data.cols-1, max(0, col))
+    # triple-check that we are in bounds. Slightly tricky but understandable.
+    row = min(data.rows - 1, max(0, row))
+    col = min(data.cols - 1, max(0, col))
 
     return (row, col)
 
@@ -49,8 +49,8 @@ def getCellBounds(row, col, data):
     x0 = data.margin + col * columnWidth
     y0 = data.margin + row * rowHeight
 
-    x1 = data.margin + (col+1) * columnWidth
-    y1 = data.margin + (row+1) * rowHeight
+    x1 = data.margin + (col + 1) * columnWidth
+    y1 = data.margin + (row + 1) * rowHeight
 
     return (x0, y0, x1, y1)
 
