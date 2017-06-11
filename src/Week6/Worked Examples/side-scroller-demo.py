@@ -17,26 +17,32 @@ def init(data):
     data.currentWallHit = -1 # start out not hitting a wall
 
 def getPlayerBounds(data):
+
     # returns absolute bounds, not taking scrollX into account
     (x0, y1) = (data.playerX, data.height/2 - data.playerY)
     (x1, y0) = (x0 + data.playerWidth, y1 - data.playerHeight)
-    return (x0, y0, x1, y1)
+
+    return x0, y0, x1, y1
 
 def getWallBounds(wall, data):
+
     # returns absolute bounds, not taking scrollX into account
     (x0, y1) = ((1+wall) * data.wallSpacing, data.height/2)
     (x1, y0) = (x0 + data.wallWidth, y1 - data.wallHeight)
-    return (x0, y0, x1, y1)
+
+    return x0, y0, x1, y1
 
 def getWallHit(data):
     # return wall that player is currently hitting
     # note: this should be optimized to only check the walls that are visible
     # or even just directly compute the wall without a loop
     playerBounds = getPlayerBounds(data)
+
     for wall in range(data.walls):
         wallBounds = getWallBounds(wall, data)
-        if (boundsIntersect(playerBounds, wallBounds) == True):
+        if boundsIntersect(playerBounds, wallBounds):
             return wall
+
     return -1
 
 def boundsIntersect(boundsA, boundsB):
@@ -49,26 +55,30 @@ def boundsIntersect(boundsA, boundsB):
 def movePlayer(dx, dy, data):
     data.playerX += dx
     data.playerY += dy
+
     # scroll to make player visible as needed
-    if (data.playerX < data.scrollX + data.scrollMargin):
+    if data.playerX < data.scrollX + data.scrollMargin:
         data.scrollX = data.playerX - data.scrollMargin
-    if (data.playerX > data.scrollX + data.width - data.scrollMargin):
+
+    if data.playerX > data.scrollX + data.width - data.scrollMargin:
         data.scrollX = data.playerX - data.width + data.scrollMargin
+
     # and check for a new wall hit
+
     wall = getWallHit(data)
-    if (wall != data.currentWallHit):
+    if wall != data.currentWallHit:
         data.currentWallHit = wall
-        if (wall >= 0):
+        if wall >= 0:
             data.wallPoints[wall] += 1
 
 def mousePressed(event, data):
     pass
 
 def keyPressed(event, data):
-    if (event.keysym == "Left"):    movePlayer(-5, 0, data)
-    elif (event.keysym == "Right"): movePlayer(+5, 0, data)
-    elif (event.keysym == "Up"):    movePlayer(0, +5, data)
-    elif (event.keysym == "Down"):  movePlayer(0, -5, data)
+    if   event.keysym == "Left":  movePlayer(-5, 0, data)
+    elif event.keysym == "Right": movePlayer(+5, 0, data)
+    elif event.keysym == "Up":    movePlayer(0, +5, data)
+    elif event.keysym == "Down":  movePlayer(0, -5, data)
 
 def timerFired(data):
     pass
@@ -85,9 +95,11 @@ def redrawAll(canvas, data):
     for wall in range(data.walls):
         (x0, y0, x1, y1) = getWallBounds(wall, data)
         fill = "orange" if (wall == data.currentWallHit) else "pink"
-        canvas.create_rectangle(x0-sx, y0, x1-sx, y1, fill=fill)
-        (cx, cy) = ((x0+x1)/2 - sx, (y0 + y1)/2)
+        canvas.create_rectangle(x0 - sx, y0, x1 - sx, y1, fill=fill)
+
+        (cx, cy) = ((x0 + x1)/2 - sx, (y0 + y1)/2)
         canvas.create_text(cx, cy, text=str(data.wallPoints[wall]))
+
         cy = lineY + 5
         canvas.create_text(cx, cy, text=str(wall), anchor=N)
 

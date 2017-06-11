@@ -85,8 +85,6 @@ def redrawAll(canvas, data):
                        font="Arial 26 bold",
                        fill="darkBlue")
 
-
-
 ####################################
 # use the run function as-is
 ####################################
