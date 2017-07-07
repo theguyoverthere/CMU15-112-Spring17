@@ -54,7 +54,7 @@
 #                 be invaluable when trying to debug animations.
 #
 #******************************************************************************#
-from tkinter import *
+from tkinter import Tk, Canvas, ALL
 import random
 import copy
 
@@ -85,7 +85,7 @@ def init(data):
 
     lPiece = [[0, 0, 1],
               [1, 1, 1],
-              [0, 0 ,0]]
+              [0, 0, 0]]
 
     sPiece = [[0, 1, 1],
               [1, 1, 0],
@@ -231,7 +231,7 @@ def placeFallingPiece(data):
     :return: None
     """
 
-    (rows , columns) = len(data.fallingPiece), len(data.fallingPiece[0])
+    (rows, columns) = len(data.fallingPiece), len(data.fallingPiece[0])
 
     for row in range(rows):
         for column in range(columns):
@@ -426,7 +426,7 @@ def fallingPieceIsLegal(data):
     :param data: 'Struct' data type bundling together named data items.
     :return: None
     """
-    (rows , columns) = len(data.fallingPiece), len(data.fallingPiece[0])
+    (rows, columns) = len(data.fallingPiece), len(data.fallingPiece[0])
 
     for row in range(rows):
         for column in range(columns):
@@ -436,9 +436,9 @@ def fallingPieceIsLegal(data):
                                                  data)
 
                 if ((x0 < data.margin) or
-                    (xn > data.width - data.margin) or
-                    (y0 < data.margin) or
-                    (yn > data.height - data.margin)):
+                        (xn > data.width - data.margin) or
+                        (y0 < data.margin) or
+                        (yn > data.height - data.margin)):
                     return False
 
                 bRow = data.fallingPieceRow + row
@@ -499,7 +499,7 @@ def drawFallingPiece(canvas, data):
     :param data: 'Struct' data type bundling together named data items.
     :return: None
     """
-    (rows , columns) = len(data.fallingPiece), len(data.fallingPiece[0])
+    (rows, columns) = len(data.fallingPiece), len(data.fallingPiece[0])
 
     for row in range(rows):
         for column in range(columns):
@@ -543,7 +543,7 @@ def drawCell(canvas, x0, y0, xn, yn, color):
     :param color: Color of the cell.
     :return: None
     """
-    canvas.create_rectangle(x0, y0, xn, yn, fill=color,width=5)
+    canvas.create_rectangle(x0, y0, xn, yn, fill=color, width=5)
 
 def drawBoard(canvas, data):
     """Draw the Tetris board.
@@ -608,7 +608,7 @@ def run(rows, columns, margin, cellSize):
         canvas.create_rectangle(0, 0,
                                 data.width, data.height,
                                 fill="white",
-                                width = 0)
+                                width=0)
         redrawAll(canvas, data)
 
         # This command is used to bring the application "up to date" by entering
