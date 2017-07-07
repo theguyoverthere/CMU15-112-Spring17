@@ -3,23 +3,23 @@
 # Date:   1/7/2017
 # Description: Mimic the Game like application in the associated video!
 #******************************************************************************#
-from tkinter import *
+from tkinter import Tk, Canvas, ALL
 
 MIN_FONT_SIZE = 10
 MAX_FONT_SIZE = 60
 HEIGHT_OFFSET = 10
-WIDTH_OFFSET  = 10
-GRID_ROWS     = 10
-GRID_COLUMNS  = 10
-GRID_MARGIN   =  0
-CIRCLE_RADIUS =  5
-CLOCK_WIDTH   = 10
-CLOCK_HEIGHT  =  5
-PLAY_TIME     = 20
-SCREEN_REFRESH_INTERVAL       = 50
-HELP_SCREEN_FIXED_FONT_SIZE   = 12
+WIDTH_OFFSET = 10
+GRID_ROWS = 10
+GRID_COLUMNS = 10
+GRID_MARGIN = 0
+CIRCLE_RADIUS = 5
+CLOCK_WIDTH = 10
+CLOCK_HEIGHT = 5
+PLAY_TIME = 20
+SCREEN_REFRESH_INTERVAL = 50
+HELP_SCREEN_FIXED_FONT_SIZE = 12
 SPLASH_SCREEN_FIXED_FONT_SIZE = 20
-GAME_OVER_FIXED_FONT_SIZE     = 26
+GAME_OVER_FIXED_FONT_SIZE = 26
 
 def init(data):
     """Initialize the 'struct' variables at the start.
@@ -113,20 +113,20 @@ def splashScreenRedrawAll(canvas, data):
     :return: None
     """
     canvas.create_text(data.width / 2,
-                      (data.height / 2 - HEIGHT_OFFSET),
+                       (data.height / 2 - HEIGHT_OFFSET),
                        font="Arial " + str(data.fontSize) + " bold",
                        text="The Hw6 Game-Like App!")
 
     canvas.create_text(data.width / 2,
-                      (data.height / 2) +
-                      (MAX_FONT_SIZE - MIN_FONT_SIZE),
+                       (data.height / 2) +
+                       (MAX_FONT_SIZE - MIN_FONT_SIZE),
                        font="Arial " + str(SPLASH_SCREEN_FIXED_FONT_SIZE),
                        text="Press 'p' to play, 'h' for help!")
 
 #------------------------------------------#
 #              Play Game Mode              #
 #------------------------------------------#
-def centerSelectedCell(xm, ym,data):
+def centerSelectedCell(xm, ym, data):
     """ Center the selected location.
 
     The point at which the mouse click occurs is moved to the center of the
@@ -299,7 +299,7 @@ def drawCell(canvas, data, row, column, x0, y0, xn, yn, color):
     # Draw the rectangular cell.
     canvas.create_rectangle(x0, y0,
                             xn, yn,
-                            fill=color,width=2)
+                            fill=color, width=2)
 
     # Add the rectangular coordinates of the cell.
     canvas.create_text((x0 + xn) / 2, y0 + (yn - y0) / 3,
@@ -308,7 +308,7 @@ def drawCell(canvas, data, row, column, x0, y0, xn, yn, color):
     # Add the 'score' of each cell, so to say. This is simply the number of
     # times the cell has been selected or positioned at the center of the
     # displayed screen.
-    canvas.create_text((x0 + xn) / 2,    y0 + ((2 * (yn - y0)) / 3),
+    canvas.create_text((x0 + xn) / 2, y0 + ((2 * (yn - y0)) / 3),
                        text=data.board[row][column])
 
 def drawBoard(canvas, data):
@@ -350,8 +350,8 @@ def drawClock(canvas, data):
     rowHeight = (data.height - (2 * GRID_MARGIN)) / (GRID_ROWS / 2)
     colWidth = (data.width - (2 * GRID_MARGIN)) / (GRID_COLUMNS / 2)
 
-    if data.playTime   > 10: fillColor = "gray"
-    elif data.playTime >  5: fillColor = "gold"
+    if data.playTime > 10: fillColor = "gray"
+    elif data.playTime > 5: fillColor = "gold"
     else: fillColor = "red"
 
     # The exact specifications for the clock are not present in the problem. It
@@ -553,7 +553,7 @@ def helpRedrawAll(canvas, data):
     canvas.create_text(data.hx,
                        data.height / 2 - HEIGHT_OFFSET,
                        font="Arial " + str(2 * HELP_SCREEN_FIXED_FONT_SIZE) +
-                            " bold underline",
+                       " bold underline",
                        text="This is not very helpful!",
                        fill=data.fontColor)
 
@@ -789,7 +789,7 @@ def run(width, height):
         canvas.create_rectangle(0, 0,
                                 data.width, data.height,
                                 fill="white",
-                                width = 0)
+                                width=0)
         redrawAll(canvas, data)
 
         # This command is used to bring the application "up to date" by entering
@@ -843,7 +843,7 @@ def run(width, height):
 
     #Set up events
     root.bind("<Button-1>", lambda event:
-                            mousePressedWrapper(event, canvas, data))
+                                mousePressedWrapper(event, canvas, data))
 
     root.bind("<Key>", lambda event:
                             keyPressedWrapper(event, canvas, data))
