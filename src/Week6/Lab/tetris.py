@@ -438,7 +438,7 @@ def fallingPieceIsLegal(data):
                 if ((x0 < data.margin) or
                     (xn > data.width - data.margin) or
                     (y0 < data.margin) or
-                    (yn > data.height -data.margin)):
+                    (yn > data.height - data.margin)):
                     return False
 
                 bRow = data.fallingPieceRow + row
@@ -581,8 +581,6 @@ def redrawAll(canvas, data):
     :param data: 'Struct' data type bundling together named data items.
     :return: None
     """
-    rowsRemoved = 0
-
     drawGame(canvas, data)
     removeFullRows(canvas, data)
     drawGameOver(canvas, data)
