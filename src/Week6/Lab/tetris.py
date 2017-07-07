@@ -112,7 +112,7 @@ def init(data):
     data.tetrisPieceColors = tetrisPieceColors
 
     # Falling Piece
-    newFallingPiece(data)
+    fallingPiece(data)
     data.gameOver = False
 
 def isRowFull(data, row):
@@ -165,7 +165,7 @@ def removeFullRows(canvas, data):
 
     data.score += fullRows ** 2
 
-def newFallingPiece(data):
+def fallingPiece(data):
     """Generate a new tetromino piece.
 
     The newFallingPiece function is responsible for randomly choosing a new
@@ -293,7 +293,7 @@ def timerFired(data):
         placeFallingPiece(data)
 
         if not data.gameOver:
-            newFallingPiece(data)
+            fallingPiece(data)
 
             if not fallingPieceIsLegal(data):
                 data.gameOver = True
