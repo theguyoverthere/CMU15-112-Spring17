@@ -566,8 +566,8 @@ def helpRedrawAll(canvas, data):
 #             Game Over Mode               #
 #------------------------------------------#
 def gameOverMousePressed(event, data):
-    """ If a Mouse click is detected on the Game Over screen, reset the board and
-    go back to the Splash Screen.
+    """ If a Mouse click is detected on the Game Over screen, reset the board
+    and go back to the Splash Screen.
 
     :param event: A Mouse Click Event
     :param data: 'Struct' data type bundling together named data items.
@@ -625,8 +625,8 @@ def gameOverRedrawAll(canvas, data):
 #             Win Game Mode                #
 #------------------------------------------#
 def winGameMousePressed(event, data):
-    """ If a Mouse click is detected on the 'Win Game' screen, reset the board and
-    go back to the Splash Screen.
+    """ If a Mouse click is detected on the 'Win Game' screen, reset the board
+    and go back to the Splash Screen.
 
     :param event: A Mouse Click Event
     :param data: 'Struct' data type bundling together named data items.
