@@ -300,8 +300,8 @@ def keyPressed(event, data):
             if data.cellValues[row][col] == -1:
                 makeMove(data, int(event.keysym))
             else:
-                togglePlayer(data)
-                winRound(data, data.currentPlayer)
+                opponent = 1 if data.currentPlayer == 0 else 0
+                winRound(data, opponent)
 
         elif event.keysym == "Left":
             moveHighlightedCell(0, -1, data)
