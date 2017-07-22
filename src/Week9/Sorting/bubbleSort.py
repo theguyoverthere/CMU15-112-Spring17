@@ -18,9 +18,8 @@ def swap(L, i, j):
     :param j: Index 2 of the elements which needs to be swapped.
     :return: None
     """
-    temp = L[i]
-    L[i] = L[j]
-    L[j] = temp
+
+    L[i], L[j] = L[j], L[i]
 
 def bubbleSort(L):
     """ Bubble sort is a simple sorting algorithm that repeatedly steps through

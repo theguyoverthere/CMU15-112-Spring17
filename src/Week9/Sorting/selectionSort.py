@@ -36,9 +36,7 @@ def swap(L, i, j):
     :return: None
     """
 
-    temp = L[i]
-    L[i] = L[j]
-    L[j] = temp
+    L[i], L[j] = L[j], L[i]
 
 def selectionSort(L):
     """ Selection Sort sorts n numbers stored in a list L by repeatedly finding
