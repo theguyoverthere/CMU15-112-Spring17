@@ -81,15 +81,20 @@ def mergeSort(L):
     partitionSize = 1
 
     while partitionSize < len(L):
+        count = 0
         startL = 0
+        mergeCount = int((len(L) // 2) / partitionSize)
 
-        for i in range(0, len(L) // 2, partitionSize):
+        # For each partitionSize, adjacent sub-lists are merged mergeCount
+        # number of times.
+        while count < mergeCount:
             endL = startL + partitionSize - 1
             startR = endL + 1
             endR = min(startR + partitionSize - 1, len(L) - 1)
 
             mergeLists(L, startL, endL, startR, endR)
             startL = endR + 1
+            count += 1
 
         partitionSize *= 2
 
