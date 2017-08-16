@@ -1,0 +1,152 @@
+1. bigOh = O(N**4 logN)
+==
+def bigOh1(L):
+    N = len(L)
+    for value in sorted(L * N):
+        L.append(value)
+    return list(reversed(L[0: len(L): 3]))
+
+Each time, a value is appended to the list, the length of the temporary list
+increases by N items, and therefore has to be sorted every single time.
+
+Step0 : (N**2) log (N**2)                 ~ 2N**2 logN
+Step1 : (N**2 + 1N) log(N**2 + 1N)        ~ 2N**2 logN + 2N logN
+Step2 : (N**2 + 2N) log(N**2 + 2N)        ~ 2N**2 logN + 4N logN
+Step3 : (N**2 + 3N) log(N**2 + 3N)        ~ 2N**2 logN + 6N logN
+
+Step m: (N**2 + mN) log(N**2 + mN)        ~ 2N**2 logN + 2mN logN
+--------------------------------------------------------------------------------
+Reason for approximation:
+log(a + b) = log(a * (1 + b /a)) = log a + log(1 + b/a)
+Using the above, log(N**2 + mN) = log N**2 + log(1 + mN/N**2)
+                                = log N**2 + log(1 + m/N)
+
+Therefore, the amount of work in Step m =
+                          = (N**2 + mN) (log N**2 + log(1 + m/N))
+                          = 2(N**2 + mN) log N + (N**2 + mN) log(1 + m/N)
+                          ~ 2(N**2 + mN) log N
+--------------------------------------------------------------------------------
+At the start of the loop, there are N**2  elements in the list so the loop runs
+N**2 times.
+
+Therefore total work involved = 2N**4logN + N**2(2NlogN + 4NlogN +..+ 2N**2logN)
+                              = 2N**4logN +  N**2 * 2N logN (1 +2 + 3 +...+ N)
+                              = 2N**4logN + 2N**3 logN * N(N +1)/2
+                              = 2N**4logN + 2N**3 logN * N(N +1)/2
+                              = 2N**4logN + N**5 logN + N**4 logN
+                              = N**5 logN + 3N**4 logN = O(N**5 logN)
+
+N = len(L)
+for value in sorted([L * N])
+     L.append(value)
+
+     This repeats N**2 times.
+
+
+2. bigOh = O(N**2)
+==
+
+def bigOh2(L):
+    N = len(L)
+    s, t = set(L), set()
+
+    for i in range(len(L)):                   #O(N)
+        t.add(L[i]**2)
+        for j in range(len(L)//4, i):         #O(N)
+            for k in range(5):
+                s.add(L[i] + L[j] - k)
+
+    return t – s
+
+3. O(N)
+==
+def bigOh3(x):
+    N = math.log(x, 2)
+    c = 1
+    while (x > 0):                            #O(N)
+         (x, c) = (x//42, c + 1)    # x = 1 when c = log x / log 42=>
+
+    x = 1
+    while (x ** 2 < c):             #Equivalent to while (x < sqrt(c))
+          x += 1                    # n = sqrt(1 + kN) - 2 ** N > 0
+    return x                        # => sqrt term should be larger
+                                    # => O(sqrt(N))
+
+
+2. Short Answers:
+a) [5,2,7,3]
+Step1: [2, 5, 7, 3]
+Step2: [2, 5, 3, 7]
+
+b. [5,2,7,3]
+Step1: [2, 5, 7, 3]
+Step2: [2, 3, 7, 5]
+
+c. Worst Case of Merge Sort = NlogN
+
+
+3. ['ab', 'bc', 'e', 'cd', 'abc']
+Sums --> 1, 3, 4, 5, 3
+Mods --> 1, 0, 1, 2, 0
+
+|_______| , |________|, |_________|
+ bc, abc       ab, e        cd
+
+
+3. Code Tracing
+
+def ct1(n):
+    s, t = set(), set()
+
+    while n > 0 :
+         d, n = n % 10, n // 10
+
+         if (d in t):
+              t.remove(d)
+         elif (d in s):
+              t.add(d)
+
+         s.add(d)
+
+    return sorted(t)
+
+print(ct1(13051231))
+
+d=1, n = 0
+s= {1, 3, 2, 5, 0}
+t= {3}
+[3] <<Answer
+
+
+def ct2(d, key):
+
+    while (key in d) and ((key+2) not in d):
+        d[key+2] = key+1              d = {1:5, 0:2, 2:1, 4:3, 3:2}
+        key = d[key]                  key = 2
+
+    L = [ ]                           l = []
+
+    for key in sorted(d.keys()):      [0, 1, 2, 3, 4]
+        L.append(10*key + d[key])     [2, 15, 21, 32, 43]
+
+    return L                          [2, 15, 21, 32, 43]
+
+print(ct2({1:5, 0:2}, 0)) # prints 5 ints
+
+
+def rc1(d):
+    i = j = k = m = 0
+
+    for key in d:
+        i += 1                   # Four key:value in d
+        value = d[key]
+        if key == value:         # In one instance, key != value
+            j = min(value, j)    # j = -2
+            k = max(value, k)    # k = 2
+        else:
+            m += 1
+
+    return (i, j, k, m) == (4, -2, +2, 1)
+
+d = {-2:-2, 2:2, 1:1, 0:1}
+print(rc1(d))

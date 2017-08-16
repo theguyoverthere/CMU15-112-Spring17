@@ -137,20 +137,3 @@ def slow5(a, b):
             if (delta < result):
                 result = delta
     return result
-
-def binarySearch(a, x):
-    lower = 0
-    upper = len(a) - 1
-    a.sort()
-
-    while upper - lower >= 0:
-        middle = (upper + lower) // 2
-
-        if a[middle] == x:
-            return True
-        elif x > a[middle]:
-            lower = middle + 1
-        else:
-            upper = middle - 1
-
-    return False
