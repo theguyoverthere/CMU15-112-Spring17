@@ -30,9 +30,3 @@ def mostPopularFriend(d):
             mostPopular = name
 
     return mostPopular
-
-d = dict()
-d["fred"] = set(["wilma", "betty", "barney"])
-d["wilma"] = set(["fred", "betty", "dino"])
-
-print(mostPopularFriend(d))
