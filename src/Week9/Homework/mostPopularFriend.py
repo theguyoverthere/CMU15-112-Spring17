@@ -13,6 +13,15 @@
 #******************************************************************************#
 
 def mostPopularFriend(d):
+    """ Takes a dictionary which maps people to the set of their friends, and
+    returns the name that occurs the most number of times in all the sets of
+    friends.
+
+    :param d: Dictionary that maps people to the set of their friends.
+    :return: Name that occurs the most number of times in all the sets of
+    friends.
+    """
+
     nameCount = dict()
     mostPopular = ""
     count = 0
