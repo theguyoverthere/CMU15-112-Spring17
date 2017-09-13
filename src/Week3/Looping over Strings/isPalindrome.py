@@ -28,7 +28,6 @@ def isPalindrome4(s):
 
     return True
 
-
 print(isPalindrome1("abcba"), isPalindrome1("abca"))
 print(isPalindrome2("abcba"), isPalindrome2("abca"))
 print(isPalindrome3("abcba"), isPalindrome3("abca"))
