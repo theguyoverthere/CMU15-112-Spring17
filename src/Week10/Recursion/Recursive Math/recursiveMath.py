@@ -17,7 +17,7 @@ def f3(x):
 
 def f4(x):
     if x == 0: return 40
-    else: return 2 + f4(x-1) #f(0) = 42, f(1) = 42, f(2) = 44, f(3) = 46
+    else: return 2 + f4(x-1) #f(0) = 40, f(1) = 42, f(2) = 44, f(3) = 46
 
 def f5(x):
     if x == 0: return 0      #Triangular Numbers
@@ -32,6 +32,7 @@ def f6(x):
 def f7(x):
     if x == 0: return 1
     else: return 2*f7(x-1) #f(0) = 1, f(1) = 2, f(2) = 4 , f(3) = 8, f(4) = 16
+
 
 def f8(x):
     if x < 2: return 0

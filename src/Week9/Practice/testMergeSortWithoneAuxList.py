@@ -1,3 +1,11 @@
+import os, sys
+# Locate src package
+sys.path.append(os.path.abspath(os.path.join(__file__,
+                                             os.pardir,
+                                             os.pardir,
+                                             os.pardir,
+                                             os.pardir)))
+
 from src.Week9.Practice.mergeSortWithOneAuxList import mergeSortWithOneAuxList
 from src.Week9.Sorting.mergeSort import mergeSort
 

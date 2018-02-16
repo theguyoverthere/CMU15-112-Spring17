@@ -12,7 +12,7 @@ class A(object):
                 (self.y == other.y))
 
     def getHashables(self):
-        return self.x, self.y
+        return (self.x, self.y)
 
 s = set()
 s.add(A(5, 2))

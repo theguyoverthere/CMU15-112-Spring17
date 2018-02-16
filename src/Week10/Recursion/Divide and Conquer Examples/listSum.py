@@ -1,8 +1,13 @@
-def listSum(L):
-    if len(L) == 0:
+def listSum(l):
+    if len(l) == 0:
         return 0
+    elif len(l) == 1:
+        return l[0]
     else:
-        mid = len(L) // 2
-        return listSum(L[:mid]) + listSum(L[mid:])
+        mid = len(l) // 2
+        return listSum(l[:mid]) + listSum(l[mid:])
 
-print(listSum([2])) # 28
+print(listSum([]))
+print(listSum([1]))
+print(listSum([1, 2]))
+print(listSum([1,2, 3]))

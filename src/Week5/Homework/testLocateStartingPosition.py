@@ -1,3 +1,12 @@
+import os, sys
+# Locate src package
+sys.path.append(os.path.abspath(os.path.join(__file__,
+                                             os.pardir,
+                                             os.pardir,
+                                             os.pardir,
+                                             os.pardir)))
+
+
 from unittest import TestCase
 from src.Week5.Homework.isKingsTour import locateStartPosition
 

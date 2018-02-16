@@ -6,4 +6,8 @@ def power(base, exp):
     else:
         return base * power(base, exp // 2) ** 2
 
-print(power(2,5)) # 32
+print(power(2, 0))
+print(power(2, 1))
+print(power(2, 2))
+print(power(2, 3))
+print(power(2, 4))
