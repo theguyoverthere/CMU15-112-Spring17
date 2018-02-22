@@ -12,11 +12,7 @@ class TestAlternatingSum(TestCase):
     def test_Alternating_Sum_Empty_List(self):
         self.assertEqual(alternatingSum([]), 0)
 
-    def test_Alternating_Sum_Single_Element(self):
+    def test_Alternating_Sum_Non_Empty_List(self):
         self.assertEqual(alternatingSum([1]), 1)
-
-    def test_Alternating_Even_Elements(self):
         self.assertEqual(alternatingSum([1, 2, 3, 4]), -2)
-
-    def test_Alternating_Odd_Elements(self):
         self.assertEqual(alternatingSum([1, 2, 3, 4, 5]), 3)
